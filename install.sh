@@ -41,10 +41,19 @@ fi
 
 #############################
 # SETTING UP CRON
-rm runmeonboot.sh
+rm runmeonboot
 curl --insecure -O -s https://raw.githubusercontent.com/minerstat/minerstat-asic-hub/master/runmeonboot
 chmod 777 runmeonboot
-ln -s runmeonboot /etc/rc.d/
+#ln -s runmeonboot /etc/rc.d/
+
+dir=$(pwd)
+echo -n > /etc/init.d/minerstat
+chmod 777 /etc/init.d/minerstat
+echo "#!/bin/sh" >> /etc/init.d/minerstat
+echo "$dir/runmeonboot" >> /etc/init.d/minerstat
+chmod ugo+x /etc/init.d/minerstat
+
+update-rc.d minerstat defaults
 
 #############################
 # START THE SCRIPT
