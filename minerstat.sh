@@ -17,8 +17,8 @@ fi
 # GLOBAL VARIBLES
 
 # MINER
-TOKEN=$(cat minerstat.txt | grep 'TOKEN="' | sed 's/TOKEN="//g' | sed 's/"//g')
-WORKER=$(cat minerstat.txt | grep 'WORKER="' | sed 's/WORKER="//g' | sed 's/"//g')
+TOKEN=$(cat minerstat.txt | grep TOKEN= | sed 's/TOKEN=//g')
+WORKER=$(cat minerstat.txt | grep WORKER= | sed 's/WORKER=//g')
 
 ASIC="null"
 MINER="null"
@@ -137,7 +137,7 @@ detect() {
 
 # 3) DETECT IS OK, GET DATA FROM TCP
 fetch() {
-	echo "$ASIC detected !"
+	echo "Detected => $ASIC "
 	if [ $ASIC != "baikal" ]; then
 		QUERY=$(echo '{"command": "stats+summary+pools"}' | nc 127.0.0.1 4028)
 		RESPONSE=$QUERY
@@ -162,7 +162,8 @@ post() {
 remoteCMD() {
 
 	# DEBUG
-	# echo "$POSTDATA"
+	echo "API => Updated"
+	echo "Remote command => $POSTDATA"
 	# echo $RESPONSE
 
 	if [ $POSTDATA == "CONFIG" ]; then
