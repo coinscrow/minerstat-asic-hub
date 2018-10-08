@@ -14,6 +14,29 @@ if grep -q libcurl.so.5 "error.log"; then
 fi
 
 #############################
+# DETECT FOLDER
+if [ -d "/config" ]; then
+	CONFIG_PATH="/config"
+fi
+# BAIKAL
+if [ -d "/opt/scripta/etc" ]; then
+	CONFIG_PATH="/opt/scripta/etc"
+fi
+# DAYUN
+if [ -d "/var/www/html/resources" ]; then
+	CONFIG_PATH="/var/www/html/resources"
+fi
+# INNOSILICON
+if [ -d "/home/www/conf" ]; then
+	CONFIG_PATH="/home/www/conf"
+fi
+
+cd $CONFIG_PATH
+mkdir minerstat
+chmod 777 minerstat
+cd $CONFIG_PATH/minerstat
+
+#############################
 # DOWNLOAD
 chmod 777 minerstat.sh
 rm minerstat.sh
@@ -22,6 +45,8 @@ chmod 777 minerstat.sh
 
 #############################
 # SETTING UP USER
+
+mount -o remount,rw  /
 
 if [ $1 != "" ]; then
 	if [ $2 != "" ]; then
@@ -38,7 +63,6 @@ if [ $1 != "" ]; then
 	exit 0
 fi
 
-
 #############################
 # SETTING UP CRON
 rm runmeonboot
@@ -53,8 +77,15 @@ echo "#!/bin/sh" >> /etc/init.d/minerstat
 echo "sh $dir/runmeonboot" >> /etc/init.d/minerstat
 chmod ugo+x /etc/init.d/minerstat
 
+echo -n >  /etc/rcS.d/S71minerstat
+echo "#!/bin/sh" >> /etc/rcS.d/S71minerstat
+echo "sh $dir/runmeonboot" >> /etc/rcS.d/S71minerstat
+
 update-rc.d minerstat defaults
 
 #############################
 # START THE SCRIPT
+
+sleep 2
 sh runmeonboot
+nohup sync &
