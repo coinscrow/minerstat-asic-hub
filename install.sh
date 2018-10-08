@@ -27,7 +27,7 @@ if [ $1 != "" ]; then
 	if [ $2 != "" ]; then
 		echo -n > minerstat.txt
 		echo "TOKEN=$1" > minerstat.txt
-		echo "WORKER=$2" > minerstat.txt
+		echo "WORKER=$2" >> minerstat.txt
 		cat minerstat.txt # Echo after finish
 		else
 		echo "EXIT => Worker is not defined"
@@ -48,4 +48,4 @@ ln -s runmeonboot /etc/rc.d/
 
 #############################
 # START THE SCRIPT
-./runmeonboot
+sh runmeonboot
