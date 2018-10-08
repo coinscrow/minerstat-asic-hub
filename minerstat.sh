@@ -137,7 +137,7 @@ detect() {
 
 # 3) DETECT IS OK, GET DATA FROM TCP
 fetch() {
-	echo "Detected => $ASIC "
+	echo "Detected => $ASIC"
 	if [ $ASIC != "baikal" ]; then
 		QUERY=$(echo '{"command": "stats+summary+pools"}' | nc 127.0.0.1 4028)
 		RESPONSE=$QUERY
@@ -215,12 +215,18 @@ maintenance() {
 		sed -i '/api-network/d' "/$CONFIG_PATH/$CONFIG_FILE" 
 		sed -i '/api-groups/d' "/$CONFIG_PATH/$CONFIG_FILE" 
 		sed -i '/api-allow/d' "/$CONFIG_PATH/$CONFIG_FILE"
+
+		# REMOVE LAST LINE ( } JSON END)
+		sed -i '$ d' "/$CONFIG_PATH/$CONFIG_FILE"
 		
 		# APPLY NEW ONES
 		sed -i "\$i \"api-listen\": true," "/$CONFIG_PATH/$CONFIG_FILE"
 		sed -i "\$i \"api-network\": true," "/$CONFIG_PATH/$CONFIG_FILE"
 		sed -i "\$i \"api-groups\": \"A:stats:pools:devs:summary:version\"," "/$CONFIG_PATH/$CONFIG_FILE"
 		sed -i "\$i \"api-allow\": \"A:127.0.0.1,W:127.0.0.1\"" "/$CONFIG_PATH/$CONFIG_FILE"
+		
+		# ADD LAST LINE
+		echo " }" >> "/$CONFIG_PATH/$CONFIG_FILE"
 		
 		# IF THERES SOME API ISSUE THE ANTMINER WILL REBOOT OR RESTART ITSELF
 		# NO FORCED REBOOT REQUIRED AFTER CONFIG EDIT.

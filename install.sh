@@ -89,3 +89,4 @@ update-rc.d minerstat defaults
 sleep 2
 sh runmeonboot
 nohup sync &
+exit 0
