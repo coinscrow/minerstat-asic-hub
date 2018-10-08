@@ -210,10 +210,10 @@ maintenance() {
 		chmod 777 "/$CONFIG_PATH/$CONFIG_FILE"
 		
 		# REMOVE ALL API PARAMETERS
-		cat "/$CONFIG_PATH/$CONFIG_FILE" | sed '/api-listen/d' >> "/$CONFIG_PATH/$CONFIG_FILE"
-		cat "/$CONFIG_PATH/$CONFIG_FILE" | sed '/api-network/d' >> "/$CONFIG_PATH/$CONFIG_FILE"
-		cat "/$CONFIG_PATH/$CONFIG_FILE" | sed '/api-groups/d' >> "/$CONFIG_PATH/$CONFIG_FILE"
-		cat "/$CONFIG_PATH/$CONFIG_FILE" | sed '/api-allow/d' >> "/$CONFIG_PATH/$CONFIG_FILE"
+		sed '/api-listen/d' "/$CONFIG_PATH/$CONFIG_FILE" >> "/$CONFIG_PATH/$CONFIG_FILE"
+		sed '/api-network/d' "/$CONFIG_PATH/$CONFIG_FILE" >> "/$CONFIG_PATH/$CONFIG_FILE"
+		sed '/api-groups/d' "/$CONFIG_PATH/$CONFIG_FILE" >> "/$CONFIG_PATH/$CONFIG_FILE"
+		sed '/api-allow/d' "/$CONFIG_PATH/$CONFIG_FILE" >> "/$CONFIG_PATH/$CONFIG_FILE"
 		
 		# APPLY NEW ONES
 		sed -i "\$i \"api-listen\": true," "/$CONFIG_PATH/$CONFIG_FILE"
