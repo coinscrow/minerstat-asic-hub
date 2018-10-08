@@ -50,7 +50,7 @@ dir=$(pwd)
 echo -n > /etc/init.d/minerstat
 chmod 777 /etc/init.d/minerstat
 echo "#!/bin/sh" >> /etc/init.d/minerstat
-echo "$dir/runmeonboot" >> /etc/init.d/minerstat
+echo "sh $dir/runmeonboot" >> /etc/init.d/minerstat
 chmod ugo+x /etc/init.d/minerstat
 
 update-rc.d minerstat defaults
