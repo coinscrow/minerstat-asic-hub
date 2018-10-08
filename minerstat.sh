@@ -223,7 +223,7 @@ maintenance() {
 		sed -i "\$i \"api-listen\": true," "/$CONFIG_PATH/$CONFIG_FILE"
 		sed -i "\$i \"api-network\": true," "/$CONFIG_PATH/$CONFIG_FILE"
 		sed -i "\$i \"api-groups\": \"A:stats:pools:devs:summary:version\"," "/$CONFIG_PATH/$CONFIG_FILE"
-		sed -i "\$i \"api-allow\": \"A:127.0.0.1,W:127.0.0.1\"" "/$CONFIG_PATH/$CONFIG_FILE"
+		sed -i "\$i \"api-allow\": \"A:127.0.0.1,W:127.0.0.1\"," "/$CONFIG_PATH/$CONFIG_FILE"
 		
 		# ADD LAST LINE
 		echo " }" >> "/$CONFIG_PATH/$CONFIG_FILE"
