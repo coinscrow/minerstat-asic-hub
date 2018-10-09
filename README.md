@@ -12,7 +12,7 @@ Supported ASICs:
 
 The supported list will be announced in Beta.
 
-## Installation
+## Installation & Update
 
 Login with SSH to your asic and execute the following command:
 ``` sh

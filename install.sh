@@ -41,6 +41,13 @@ if [ -d "/home/www/conf" ]; then
 fi
 
 cd $CONFIG_PATH
+
+#############################
+# REMOVE PREV. Installation
+screen -S minerstat -X quit # kill running process
+rm -rf minerstat &> /dev/null
+rm minerstat.sh &> /dev/null
+
 mkdir minerstat &> /dev/null
 chmod 777 minerstat
 cd $CONFIG_PATH/minerstat
