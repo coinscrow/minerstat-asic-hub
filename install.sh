@@ -19,9 +19,10 @@ if [ -d "/config" ]; then
 	CONFIG_PATH="/config"
 	if [ -f "/config/cgminer.conf" ]; then
 		MINER="cgminer"
-		if grep -q minerstat "network.conf"; then
+		if grep -q minerstat "/config/network.conf"; then
 			echo "cron installed"
 		else
+			echo "cron not installed"
 			echo "screen -A -m -d -S minerstat sh /config/minerstat/minerstat.sh" >> network.conf
 		fi
 	fi
