@@ -83,7 +83,6 @@ chmod 777 runmeonboot
 
 dir=$(pwd)
 
-
 if [ $MINER != "cgminer" ]; then
 	echo -n > /etc/init.d/minerstat
 	chmod 777 /etc/init.d/minerstat
@@ -105,5 +104,5 @@ fi
 
 sleep 2
 sh runmeonboot
-nohup sync &
+nohup sync > /dev/null 2>&1 &
 exit 0
