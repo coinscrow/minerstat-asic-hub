@@ -182,7 +182,7 @@ remoteCMD() {
 		fi
 	fi
 	if [ $POSTDATA == "RESTART" ]; then
-		if [ $ASIC == "antminer"]; then
+		if [ $ASIC == "antminer" ]; then
 			/etc/init.d/cgminer.sh restart > /dev/null 
 			/etc/init.d/bmminer.sh restart > /dev/null
 		else
@@ -242,7 +242,7 @@ maintenance() {
 		# POST Config
 		
 		CURRCONF=$(cat "/$CONFIG_PATH/$CONFIG_FILE")
-		if [ $CURRCONF != "" ]; then
+		if [ $CURRCONF != "" ]; then
 			curl -s --insecure --header "Content-type: application/x-www-form-urlencoded" --request POST --data "token=$TOKEN" --data "worker=$WORKER" --data "node=$CURRCONF" https://api.minerstat.com/v2/set_asic_config.php
 		fi				
 	fi
