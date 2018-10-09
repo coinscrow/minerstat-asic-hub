@@ -173,13 +173,13 @@ remoteCMD() {
 			sleep 1 # REST A BIT
 			NEWCONFIG=$(curl -f --silent -L --insecure "http://static.minerstat.farm/asicproxy.php?token=$TOKEN&worker=$WORKER&type=$ASIC")
 			echo "NEW CONFIG => $NEWCONFIG";
-			if [ ! -z $NEWCONFIG ]; then
+			#if [ ! -z $NEWCONFIG ]; then
 				echo "CONFIG => Updating $CONIFG_PATH/$CONFIG_FILE "
 				echo $NEWCONFIG > "$CONFIG_PATH/$CONFIG_FILE"
 				POSTDATA="RESTART"
-			else
+			#else
 				echo "CONFIG => Config request was blank."
-			fi
+			#fi
 		fi
 	fi
 	if [ $POSTDATA == "RESTART" ]; then
