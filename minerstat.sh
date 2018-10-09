@@ -171,9 +171,14 @@ remoteCMD() {
 		if [ $CONFIG_FILE != "null" ]; then
 			cd $CONFIG_PATH #ENTER CONFIG DIRECTORY
 			sleep 1 # REST A BIT
-			rm $FILE # REMOVE CONFIG
-			wget -O $FILE "http://static.minerstat.farm/asicproxy.php?token=$TOKEN&worker=$WORKER&type=$ASIC"
-			POSTDATA="RESTART"
+			NEWCONFIG=$(curl -f --silent -L --insecure "http://static.minerstat.farm/asicproxy.php?token=$TOKEN&worker=$WORKER&type=$ASIC")
+			if [ $NEWCONFIG != "" ]; then
+				echo "CONFIG => Updating $CONIFG_PATH/$CONFIG_FILE "
+				echo $NEWCONFIG > "/$CONFIG_PATH/$CONFIG_FILE"
+				POSTDATA="RESTART"
+			else
+				echo "CONFIG => Config request was blank."
+			fi
 		fi
 	fi
 	if [ $POSTDATA == "RESTART" ]; then
@@ -232,7 +237,14 @@ maintenance() {
 		# IF THERES SOME API ISSUE THE ANTMINER WILL REBOOT OR RESTART ITSELF
 		# NO FORCED REBOOT REQUIRED AFTER CONFIG EDIT.
 		# BUT THESE CHANGES CAN'T BE SKIPPER OR UNLESS THE MACHINE BECOME UNSTABLE.
-			
+		
+		########################
+		# POST Config
+		
+		CURRCONF=$(cat "/$CONFIG_PATH/$CONFIG_FILE")
+		if [ $CURRCONF != "" ]; then
+			curl -s --insecure --header "Content-type: application/x-www-form-urlencoded" --request POST --data "token=$TOKEN" --data "worker=$WORKER" --data "node=$CURRCONF" https://api.minerstat.com/v2/set_asic_config.php
+		fi				
 	fi
 	check
 }

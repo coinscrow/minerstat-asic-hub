@@ -14,6 +14,13 @@ if grep -q libcurl.so.5 "error.log"; then
 fi
 
 #############################
+# DETECT-REMOVE INVALID CONFIGS
+MINER="null"
+if [ -f "/etc/init.d/cgminer.sh" ]; then
+	rm "/config/bmminer.conf" &> /dev/null
+fi
+
+#############################
 # DETECT FOLDER
 if [ -d "/config" ]; then
 	CONFIG_PATH="/config"
@@ -24,6 +31,13 @@ if [ -d "/config" ]; then
 		else
 			echo "cron not installed"
 			echo "screen -A -m -d -S minerstat sh /config/minerstat/minerstat.sh" >> /config/network.conf
+		fi
+	else
+		if [ -d "/opt/scripta/etc" || -d "/var/www/html/resources" ]; then
+			MINER="sgminer"
+		fi
+		if [ -f "/config/bmminer.conf" ]; then
+			MINER="bmminer"
 		fi
 	fi
 fi
