@@ -192,11 +192,11 @@ remoteCMD() {
 	fi
 	if [ $POSTDATA == "REBOOT" ]; then
 		echo "REBOOTING MINER..."
-		/sbin/shutdown -r
+		/sbin/shutdown -r now
 	fi
 	if [ $POSTDATA == "SHUTDOWN" ]; then
 		echo "SHUTTING DOWN..."
-		/sbin/shutdown
+		/sbin/shutdown -h now
 	fi
 }
 

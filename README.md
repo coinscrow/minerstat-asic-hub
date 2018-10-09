@@ -8,7 +8,7 @@ If you are running a larger management we recommend to check our ASIC Node.
 
 **NOTE: The software is in its Alpha, however, it is unable to harm your system.**
 
-Supported ASICs:
+Supported and tested ASICs:
 * Antminer A3
 * Antminer B3
 * Antminer D3 / D3 Blissz
@@ -17,7 +17,9 @@ Supported ASICs:
 * Antminer S1-S9 (All firmware)
 * Antminer T9 / T9+
 * Antminer X3
-* Antminer Z9/Z9-Mini
+* Antminer Z9 / Z9-Mini
+
+Work in progress for more ASIC support.
 
 ## Installation & Update
 
@@ -33,6 +35,7 @@ Default SSH Login
 | ASIC          | Username  | Password        |
 | ------------- |:---------:| ---------------:|
 | Antminer      | root      | admin           |
+| Baikal        | baikal    | baikal          |
 | Baikal        | admin     | root            |
 | Dayun         | root      | envision        |
 | Innosilicon   | root      | innot1t2        |
