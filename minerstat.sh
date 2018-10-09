@@ -237,23 +237,7 @@ maintenance() {
 		# IF THERES SOME API ISSUE THE ANTMINER WILL REBOOT OR RESTART ITSELF
 		# NO FORCED REBOOT REQUIRED AFTER CONFIG EDIT.
 		# BUT THESE CHANGES CAN'T BE SKIPPER OR UNLESS THE MACHINE BECOME UNSTABLE.
-		
-		########################
-		# POST Config
-		
-		if [ $TOKEN == "null" ]; then
-			MODEL=$(sed -n 2p /usr/bin/compile_time)
-			TOKEN=$(cat "$CONFIG_PATH/minerstat/minerstat.txt" | grep TOKEN= | sed 's/TOKEN=//g')
-			WORKER=$(cat "$CONFIG_PATH/minerstat/minerstat.txt" | grep WORKER= | sed 's/WORKER=//g')
-		fi	
-		
-		CURRCONF=$(cat "$CONFIG_PATH/$CONFIG_FILE")
-		echo "$CURRCONF"
-		
-		#if [ $CURRCONF != "" ]; then
-			POSTREQUEST=$(curl -s --insecure --header "Content-type: application/x-www-form-urlencoded" --request POST --data "token=$TOKEN" --data "worker=$WORKER" --data "node=$CURRCONF" https://api.minerstat.com/v2/set_asic_config.php)
-			echo "CONFIG POST => $POSTREQUEST"
-		#fi				
+				
 	fi
 	check
 }

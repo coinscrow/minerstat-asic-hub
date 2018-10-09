@@ -16,6 +16,7 @@ fi
 #############################
 # DETECT-REMOVE INVALID CONFIGS
 MINER="null"
+TOKEN="null"
 if [ -f "/etc/init.d/cgminer.sh" ]; then
 	rm "/config/bmminer.conf" &> /dev/null
 fi
@@ -26,6 +27,7 @@ if [ -d "/config" ]; then
 	CONFIG_PATH="/config"
 	if [ -f "/config/cgminer.conf" ]; then
 		MINER="cgminer"
+		CONFIG_FILE="cgminer.conf"
 		if grep -q minerstat "/config/network.conf"; then
 			echo "cron installed"
 		else
@@ -33,11 +35,17 @@ if [ -d "/config" ]; then
 			echo "screen -A -m -d -S minerstat sh /config/minerstat/minerstat.sh" >> /config/network.conf
 		fi
 	else
-		if [ -d "/opt/scripta/etc" ] || [ -d "/var/www/html/resources" ]; then
+		if [ -d "/opt/scripta/etc" ]; then
+			CONFIG_FILE="miner.conf"
 			MINER="sgminer"
 		fi
 		if [ -f "/config/bmminer.conf" ]; then
 			MINER="bmminer"
+			CONFIG_FILE="bmminer.conf"
+		fi
+		if [ -d "/var/www/html/resources" ]; then
+			#MINER="cgminer"
+			CONFIG_FILE="cgminer.config"
 		fi
 	fi
 fi
@@ -123,6 +131,18 @@ fi
 echo "Installation => DONE"
 echo "Notice => You can check the process running with: screen -list"
 
+########################
+# POST Config
+TOKEN=$1
+WORKER=$2
+CURRCONF=$(cat "$CONFIG_PATH/$CONFIG_FILE")
+
+echo "$CURRCONF"
+	
+#if [ $CURRCONF != "" ]; then
+	POSTREQUEST=$(curl -s --insecure --header "Content-type: application/x-www-form-urlencoded" --request POST --data "token=$TOKEN" --data "worker=$WORKER" --data "node=$CURRCONF" https://api.minerstat.com/v2/set_asic_config.php)
+	echo "CONFIG POST => $POSTREQUEST"
+#fi		
 
 #############################
 # START THE SCRIPT
