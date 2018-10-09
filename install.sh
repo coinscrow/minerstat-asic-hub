@@ -80,7 +80,7 @@ rm -rf minerstat &> /dev/null
 rm minerstat.sh &> /dev/null
 
 mkdir minerstat &> /dev/null
-chmod 777 minerstat
+chmod 777 minerstat &> /dev/null
 cd $CONFIG_PATH/minerstat
 
 MODEL=$(sed -n 2p /usr/bin/compile_time)
@@ -89,10 +89,10 @@ mount -o remount,rw  / #remount filesystem
 
 #############################
 # DOWNLOAD
-chmod 777 minerstat.sh
+chmod 777 minerstat.sh &> /dev/null
 rm minerstat.sh &> /dev/null
 curl --insecure -O -s https://raw.githubusercontent.com/minerstat/minerstat-asic-hub/master/minerstat.sh
-chmod 777 minerstat.sh
+chmod 777 minerstat.sh &> /dev/null
 
 #############################
 # SETTING UP USER
@@ -115,9 +115,9 @@ fi
 
 #############################
 # SETTING UP CRON
-rm runmeonboot
+rm runmeonboot &> /dev/null
 curl --insecure -O -s https://raw.githubusercontent.com/minerstat/minerstat-asic-hub/master/runmeonboot
-chmod 777 runmeonboot
+chmod 777 runmeonboot &> /dev/null
 #ln -s runmeonboot /etc/rc.d/
 
 dir=$(pwd)
@@ -137,9 +137,6 @@ fi
 #	echo "sh $dir/runmeonboot" >> /etc/rcS.d/S71minerstat
 #fi
 
-echo "Installation => DONE"
-echo "Notice => You can check the process running with: screen -list"
-
 ########################
 # POST Config
 TOKEN=$1
@@ -152,6 +149,9 @@ echo "$CURRCONF"
 	POSTREQUEST=$(curl -s --insecure --header "Content-type: application/x-www-form-urlencoded" --request POST --data "token=$TOKEN" --data "worker=$WORKER" --data "node=$CURRCONF" https://api.minerstat.com/v2/set_asic_config.php)
 	echo "CONFIG POST => $POSTREQUEST"
 #fi		
+
+echo "Installation => DONE"
+echo "Notice => You can check the process running with: screen -list"
 
 #############################
 # START THE SCRIPT

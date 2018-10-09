@@ -9,8 +9,15 @@ If you are running a larger management we recommend to check our ASIC Node.
 **NOTE: The software is in its Alpha, however, it is unable to harm your system.**
 
 Supported ASICs:
-
-The supported list will be announced in Beta.
+* Antminer A3
+* Antminer B3
+* Antminer D3 / D3 Blissz
+* Antminer E3
+* Antminer L3+ / L3++
+* Antminer S1-S9 (All firmware)
+* Antminer T9 / T9+
+* Antminer X3
+* Antminer Z9/Z9-Mini
 
 ## Installation & Update
 
