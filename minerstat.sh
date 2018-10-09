@@ -160,8 +160,11 @@ post() {
 remoteCMD() {
 
 	# DEBUG
-	echo "API => Updated"
-	echo "Remote command => $POSTDATA"
+	echo "API => Updated (Waiting for the next sync)"
+	
+	if [ $POSTDATA != "NULL" ]; then 
+			echo "Remote command => $POSTDATA"
+	fi
 	# echo $RESPONSE
 
 	if [ $POSTDATA == "CONFIG" ]; then

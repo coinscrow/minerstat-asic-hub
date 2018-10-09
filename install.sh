@@ -3,7 +3,7 @@ echo "--------- MINERSTAT ASIC HUB (INSTALL) -----------"
 
 #############################
 # TESTING CURL
-rm error.log
+rm error.log &> /dev/null
 curl 2> error.log
 
 if grep -q libcurl.so.5 "error.log"; then
@@ -41,7 +41,7 @@ if [ -d "/home/www/conf" ]; then
 fi
 
 cd $CONFIG_PATH
-mkdir minerstat
+mkdir minerstat &> /dev/null
 chmod 777 minerstat
 cd $CONFIG_PATH/minerstat
 
@@ -52,7 +52,7 @@ mount -o remount,rw  / #remount filesystem
 #############################
 # DOWNLOAD
 chmod 777 minerstat.sh
-rm minerstat.sh
+rm minerstat.sh &> /dev/null
 curl --insecure -O -s https://raw.githubusercontent.com/minerstat/minerstat-asic-hub/master/minerstat.sh
 chmod 777 minerstat.sh
 
@@ -61,6 +61,7 @@ chmod 777 minerstat.sh
 
 if [ $1 != "" ]; then
 	if [ $2 != "" ]; then
+		echo "---- USER -----"
 		echo -n > minerstat.txt
 		echo "TOKEN=$1" > minerstat.txt
 		echo "WORKER=$2" >> minerstat.txt
@@ -97,6 +98,9 @@ fi
 #	echo "#!/bin/sh" >> /etc/rcS.d/S71minerstat
 #	echo "sh $dir/runmeonboot" >> /etc/rcS.d/S71minerstat
 #fi
+
+echo "Installation => DONE"
+echo "Notice => You can check the process running with: screen -list"
 
 
 #############################
