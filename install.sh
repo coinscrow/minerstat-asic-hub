@@ -33,7 +33,7 @@ if [ -d "/config" ]; then
 			echo "screen -A -m -d -S minerstat sh /config/minerstat/minerstat.sh" >> /config/network.conf
 		fi
 	else
-		if [ -d "/opt/scripta/etc" || -d "/var/www/html/resources" ]; then
+		if [ -d "/opt/scripta/etc" ] || [ -d "/var/www/html/resources" ]; then
 			MINER="sgminer"
 		fi
 		if [ -f "/config/bmminer.conf" ]; then
