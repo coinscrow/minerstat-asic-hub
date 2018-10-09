@@ -1,0 +1,37 @@
+#!/bin/sh
+echo "--------- MINERSTAT ASIC HUB (UNINSTALL) -----------"
+
+# CGMINER CRON DELETE
+if [ -d "/config" ]; then
+	if [ -f "/config/cgminer.conf" ]; then
+		if grep -q minerstat "/config/network.conf"; then
+			sed -i '$ d' /config/network.conf
+		fi
+	fi
+	
+# BMMINER & SGMINER CRON DELETE
+rm /etc/init.d/minerstat
+
+# MINERSTAT REMOVE
+	# ANTMINER
+	if [ -d "/config" ]; then
+		CONFIG_PATH="/config"
+	fi
+	# BAIKAL
+	if [ -d "/opt/scripta/etc" ]; then
+		CONFIG_PATH="/opt/scripta/etc"
+	fi
+	# DAYUN
+	if [ -d "/var/www/html/resources" ]; then
+		CONFIG_PATH="/var/www/html/resources"
+	fi
+	# INNOSILICON
+	if [ -d "/home/www/conf" ]; then
+		CONFIG_PATH="/home/www/conf"
+	fi
+
+rm -rf "$CONFIG_PATH/minerstat"
+
+sleep 2
+nohup sync > /dev/null 2>&1 &
+exit 0
