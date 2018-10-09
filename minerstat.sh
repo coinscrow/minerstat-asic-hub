@@ -5,20 +5,11 @@ rm error.log
 cat minerstat.txt 2> error.log
 
 #############################
-# VALIDATE INSTALLATION
-
-if grep -q such "error.log"; then
-	echo "ERROR => Please reinstall the software."
-	echo "EXIT => CODE (1)"
-	exit 1
-fi
-
-#############################
 # GLOBAL VARIBLES
 
-# MINER
-TOKEN=$(cat minerstat.txt | grep TOKEN= | sed 's/TOKEN=//g')
-WORKER=$(cat minerstat.txt | grep WORKER= | sed 's/WORKER=//g')
+TOKEN="null"
+WORKER="null"
+MODEL="null"
 
 ASIC="null"
 MINER="null"
@@ -125,6 +116,13 @@ detect() {
 	# DRAGONMINT
 	# NOT SURE ?
 	
+	# MINER
+	if [ $TOKEN == "null" ]; then
+		MODEL=$(sed -n 2p /usr/bin/compile_time)
+		TOKEN=$(cat "$CONFIG_PATH/minerstat/minerstat.txt" | grep TOKEN= | sed 's/TOKEN=//g')
+		WORKER=$(cat "$CONFIG_PATH/minerstat/minerstat.txt" | grep WORKER= | sed 's/WORKER=//g')
+	fi	
+		
 	if [ $FOUND == "null" ]; then
 		FOUND="err"
 		echo "ERROR => This machine is not supported."

@@ -17,6 +17,14 @@ fi
 # DETECT FOLDER
 if [ -d "/config" ]; then
 	CONFIG_PATH="/config"
+	if [ -f "/config/cgminer.conf" ]; then
+		MINER="cgminer"
+		if grep -q minerstat "network.conf"; then
+			echo "cron installed"
+		else
+			echo "screen -A -m -d -S minerstat sh /config/minerstat/minerstat.sh" >> network.conf
+		fi
+	fi
 fi
 # BAIKAL
 if [ -d "/opt/scripta/etc" ]; then
@@ -36,6 +44,10 @@ mkdir minerstat
 chmod 777 minerstat
 cd $CONFIG_PATH/minerstat
 
+MODEL=$(sed -n 2p /usr/bin/compile_time)
+
+mount -o remount,rw  / #remount filesystem
+
 #############################
 # DOWNLOAD
 chmod 777 minerstat.sh
@@ -45,8 +57,6 @@ chmod 777 minerstat.sh
 
 #############################
 # SETTING UP USER
-
-mount -o remount,rw  /
 
 if [ $1 != "" ]; then
 	if [ $2 != "" ]; then
@@ -71,17 +81,23 @@ chmod 777 runmeonboot
 #ln -s runmeonboot /etc/rc.d/
 
 dir=$(pwd)
-echo -n > /etc/init.d/minerstat
-chmod 777 /etc/init.d/minerstat
-echo "#!/bin/sh" >> /etc/init.d/minerstat
-echo "sh $dir/runmeonboot" >> /etc/init.d/minerstat
-chmod ugo+x /etc/init.d/minerstat
 
-echo -n >  /etc/rcS.d/S71minerstat
-echo "#!/bin/sh" >> /etc/rcS.d/S71minerstat
-echo "sh $dir/runmeonboot" >> /etc/rcS.d/S71minerstat
 
-update-rc.d minerstat defaults
+if [ $MINER != "cgminer" ]; then
+	echo -n > /etc/init.d/minerstat
+	chmod 777 /etc/init.d/minerstat
+	echo "#!/bin/sh" >> /etc/init.d/minerstat
+	echo "sh $dir/runmeonboot" >> /etc/init.d/minerstat
+	chmod ugo+x /etc/init.d/minerstat
+	update-rc.d minerstat defaults
+fi
+
+#if [ $MINER != "cgminer" ]; then
+#	echo -n >  /etc/rcS.d/S71minerstat
+#	echo "#!/bin/sh" >> /etc/rcS.d/S71minerstat
+#	echo "sh $dir/runmeonboot" >> /etc/rcS.d/S71minerstat
+#fi
+
 
 #############################
 # START THE SCRIPT
