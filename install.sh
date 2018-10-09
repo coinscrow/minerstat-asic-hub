@@ -23,7 +23,7 @@ if [ -d "/config" ]; then
 			echo "cron installed"
 		else
 			echo "cron not installed"
-			echo "screen -A -m -d -S minerstat sh /config/minerstat/minerstat.sh" >> network.conf
+			echo "screen -A -m -d -S minerstat sh /config/minerstat/minerstat.sh" >> /config/network.conf
 		fi
 	fi
 fi
