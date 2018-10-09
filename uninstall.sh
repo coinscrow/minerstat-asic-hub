@@ -1,6 +1,8 @@
 #!/bin/sh
 echo "--------- MINERSTAT ASIC HUB (UNINSTALL) -----------"
 
+echo "Remove => Cronjobs"
+
 # CGMINER CRON DELETE
 if [ -d "/config" ]; then
 	if [ -f "/config/cgminer.conf" ]; then
@@ -30,7 +32,11 @@ rm /etc/init.d/minerstat
 		CONFIG_PATH="/home/www/conf"
 	fi
 
-rm -rf "$CONFIG_PATH/minerstat"
+
+echo "Remove => /$CONFIG_PATH/minerstat/*"
+rm -rf "/$CONFIG_PATH/minerstat"
+
+echo "Uninstall => Done"
 
 sleep 2
 nohup sync > /dev/null 2>&1 &
