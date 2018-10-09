@@ -26,7 +26,7 @@ CONFIG_FILE="null"
 
 #############################
 # TESTING CURL
-rm error.log
+rm error.log &> /dev/null
 curl 2> error.log
 
 if grep -q libcurl.so.5 "error.log"; then
@@ -232,7 +232,7 @@ maintenance() {
 		sed -i "\$i \"api-allow\": \"A:127.0.0.1,W:127.0.0.1\"," "/$CONFIG_PATH/$CONFIG_FILE"
 		
 		# ADD LAST LINE
-		echo " }" >> "/$CONFIG_PATH/$CONFIG_FILE"
+		echo " }" >> "$CONFIG_PATH/$CONFIG_FILE"
 		
 		# IF THERES SOME API ISSUE THE ANTMINER WILL REBOOT OR RESTART ITSELF
 		# NO FORCED REBOOT REQUIRED AFTER CONFIG EDIT.
@@ -247,11 +247,13 @@ maintenance() {
 			WORKER=$(cat "$CONFIG_PATH/minerstat/minerstat.txt" | grep WORKER= | sed 's/WORKER=//g')
 		fi	
 		
-		CURRCONF=$(cat "/$CONFIG_PATH/$CONFIG_FILE")
-		if [ $CURRCONF != "" ]; then
+		CURRCONF=$(cat "$CONFIG_PATH/$CONFIG_FILE")
+		echo "$CURRCONF"
+		
+		#if [ $CURRCONF != "" ]; then
 			POSTREQUEST=$(curl -s --insecure --header "Content-type: application/x-www-form-urlencoded" --request POST --data "token=$TOKEN" --data "worker=$WORKER" --data "node=$CURRCONF" https://api.minerstat.com/v2/set_asic_config.php)
 			echo "CONFIG POST => $POSTREQUEST"
-		fi				
+		#fi				
 	fi
 	check
 }
