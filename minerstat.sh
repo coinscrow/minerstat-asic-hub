@@ -184,8 +184,8 @@ remoteCMD() {
 	if [ $POSTDATA == "RESTART" ]; then
 		if [ $ASIC == "antminer" ]; then
 			echo "RESTARTING MINER..."
-			/etc/init.d/cgminer.sh restart > /dev/null 
-			/etc/init.d/bmminer.sh restart > /dev/null
+			/etc/init.d/cgminer.sh restart &> /dev/null
+			/etc/init.d/bmminer.sh restart &> /dev/null
 		else
 			POSTDATA="REBOOT"
 		fi

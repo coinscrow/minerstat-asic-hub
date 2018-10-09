@@ -17,6 +17,8 @@ fi
 # DETECT-REMOVE INVALID CONFIGS
 MINER="null"
 TOKEN="null"
+ASIC="null"
+
 if [ -f "/etc/init.d/cgminer.sh" ]; then
 	rm "/config/bmminer.conf" &> /dev/null
 fi
@@ -24,42 +26,49 @@ fi
 #############################
 # DETECT FOLDER
 if [ -d "/config" ]; then
+	ASIC="antminer"
 	CONFIG_PATH="/config"
 	if [ -f "/config/cgminer.conf" ]; then
 		MINER="cgminer"
 		CONFIG_FILE="cgminer.conf"
-		if grep -q minerstat "/config/network.conf"; then
-			echo "cron installed"
-		else
-			echo "cron not installed"
-			echo "screen -A -m -d -S minerstat sh /config/minerstat/minerstat.sh" >> /config/network.conf
-		fi
+	fi
+	if [ -f "/config/bmminer.conf" ]; then
+		MINER="bmminer"
+		CONFIG_FILE="bmminer.conf"
+	fi
+	## CRON
+	if grep -q minerstat "/config/network.conf"; then
+		echo "cron installed"
 	else
-		if [ -d "/opt/scripta/etc" ]; then
-			CONFIG_FILE="miner.conf"
-			MINER="sgminer"
-		fi
-		if [ -f "/config/bmminer.conf" ]; then
-			MINER="bmminer"
-			CONFIG_FILE="bmminer.conf"
-		fi
-		if [ -d "/var/www/html/resources" ]; then
-			#MINER="cgminer"
-			CONFIG_FILE="cgminer.config"
-		fi
+		echo "cron not installed"
+		echo "screen -A -m -d -S minerstat sh /config/minerstat/minerstat.sh" >> /config/network.conf
 	fi
 fi
-# BAIKAL
+	
 if [ -d "/opt/scripta/etc" ]; then
+	CONFIG_FILE="miner.conf"
+	MINER="sgminer"
 	CONFIG_PATH="/opt/scripta/etc"
+	ASIC="baikal"
 fi
-# DAYUN
+
+if [ -f "/config/bmminer.conf" ]; then
+	MINER="bmminer"
+	CONFIG_FILE="bmminer.conf"
+fi
+
 if [ -d "/var/www/html/resources" ]; then
+	MINER="cgminer"
+	CONFIG_FILE="cgminer.config"
 	CONFIG_PATH="/var/www/html/resources"
+	ASIC="dayun"
 fi
-# INNOSILICON
+
 if [ -d "/home/www/conf" ]; then
+	MINER="cgminer"
+	CONFIG_FILE="cgminer.conf"
 	CONFIG_PATH="/home/www/conf"
+	ASIC="innosilicon"
 fi
 
 cd $CONFIG_PATH
@@ -113,7 +122,7 @@ chmod 777 runmeonboot
 
 dir=$(pwd)
 
-if [ $MINER != "cgminer" ]; then
+if [ $ASIC != "antminer" ]; then
 	echo -n > /etc/init.d/minerstat
 	chmod 777 /etc/init.d/minerstat
 	echo "#!/bin/sh" >> /etc/init.d/minerstat
