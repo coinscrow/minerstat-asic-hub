@@ -257,17 +257,13 @@ maintenance() {
 # Replace the script during runtime, this not applies until a reboot
 
 aupdate() {
-	while true
-	do 
-		sleep 43000 # 12 hour (approx. twice a day)
 		curl --insecure -O -s https://raw.githubusercontent.com/minerstat/minerstat-asic-hub/master/minerstat.sh
-	done
 }
 
 #############################
 # SYNC LOOP
 maintenance
-aupdate
+#aupdate
 while true
 do 
 	sleep 45
