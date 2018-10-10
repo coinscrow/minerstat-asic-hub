@@ -175,7 +175,7 @@ remoteCMD() {
 			#if [ ! -z $NEWCONFIG ]; then
 				echo "CONFIG => Updating $CONIFG_PATH/$CONFIG_FILE "
 				curl -f --silent -L --insecure "http://static.minerstat.farm/asicproxy.php?token=$TOKEN&worker=$WORKER&type=$ASIC" > "$CONIFG_PATH/$CONFIG_FILE"
-				POSTDATA="RESTART"
+				POSTDATA="REBOOT"
 			#else
 				#echo "CONFIG => Config request was blank."
 			#fi

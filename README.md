@@ -36,7 +36,6 @@ Default SSH Login
 | ------------- |:---------:| ---------------:|
 | Antminer      | root      | admin           |
 | Baikal        | baikal    | baikal          |
-| Baikal        | admin     | root            |
 | Dayun         | root      | envision        |
 | Innosilicon   | root      | innot1t2        |
 | Innosilicon   | root      | t1t2t3a5        |
