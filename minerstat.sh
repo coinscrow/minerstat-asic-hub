@@ -37,10 +37,6 @@ if grep -q libcurl.so.5 "error.log"; then
 fi
 
 #############################
-# AUTO UPDATE
-curl --insecure -O -s https://raw.githubusercontent.com/minerstat/minerstat-asic-hub/master/minerstat.sh
-
-#############################
 # CORE FUNCTIONS
 
 # 1) ASSIGN JOBS FOR DIFFERENT ASIC TYPES
@@ -178,9 +174,12 @@ remoteCMD() {
 			#echo "NEW CONFIG => $NEWCONFIG";
 			#if [ ! -z $NEWCONFIG ]; then
 				echo "CONFIG => Updating $CONIFG_PATH/$CONFIG_FILE "
+				rm "$CONIFG_PATH/$CONFIG_FILE"
 				curl -f --silent -L --insecure "http://static.minerstat.farm/asicproxy.php?token=$TOKEN&worker=$WORKER&type=$ASIC" > "$CONIFG_PATH/$CONFIG_FILE"
 				POSTDATA="REBOOT"
-				sleep 1
+				sleep 6
+				# DEBUG
+				cat "$CONIFG_PATH/$CONFIG_FILE"
 			#else
 				#echo "CONFIG => Config request was blank."
 			#fi
@@ -197,7 +196,7 @@ remoteCMD() {
 		fi
 	fi
 	if [ $POSTDATA == "REBOOT" ]; then
-		sleep 2
+		sleep 3
 		echo "REBOOTING MINER..."
 		/sbin/shutdown -r now
 	fi
@@ -256,8 +255,21 @@ maintenance() {
 #############################
 # SYNC LOOP
 maintenance
+aupdate
 while true
 do 
 	sleep 45
 	check
 done
+
+#############################
+# AUTO UPDATE
+# Replace the script during runtime, this not applies until a reboot
+
+aupdate() {
+	while true
+	do 
+		sleep 43000 # 12 hour (approx. twice a day)
+		curl --insecure -O -s https://raw.githubusercontent.com/minerstat/minerstat-asic-hub/master/minerstat.sh
+	done
+}
