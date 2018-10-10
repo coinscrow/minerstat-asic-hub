@@ -173,13 +173,13 @@ remoteCMD() {
 			sleep 1 # REST A BIT
 			#echo "NEW CONFIG => $NEWCONFIG";
 			#if [ ! -z $NEWCONFIG ]; then
-				echo "CONFIG => Updating $CONIFG_PATH/$CONFIG_FILE "
-				rm "$CONIFG_PATH/$CONFIG_FILE"
-				curl -f --silent -L --insecure "http://static.minerstat.farm/asicproxy.php?token=$TOKEN&worker=$WORKER&type=$ASIC" > "$CONIFG_PATH/$CONFIG_FILE"
+				echo "CONFIG => Updating $CONFIG_PATH/$CONFIG_FILE "
+				rm "$CONFIG_PATH/$CONFIG_FILE"
+				curl -f --silent -L --insecure "http://static.minerstat.farm/asicproxy.php?token=$TOKEN&worker=$WORKER&type=$ASIC" > "$CONFIG_PATH/$CONFIG_FILE"
 				POSTDATA="REBOOT"
 				sleep 6
 				# DEBUG
-				cat "$CONIFG_PATH/$CONFIG_FILE"
+				cat "$CONFIG_PATH/$CONFIG_FILE"
 			#else
 				#echo "CONFIG => Config request was blank."
 			#fi
