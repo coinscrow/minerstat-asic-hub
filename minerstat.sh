@@ -253,16 +253,6 @@ maintenance() {
 }
 
 #############################
-# SYNC LOOP
-maintenance
-aupdate
-while true
-do 
-	sleep 45
-	check
-done
-
-#############################
 # AUTO UPDATE
 # Replace the script during runtime, this not applies until a reboot
 
@@ -273,3 +263,13 @@ aupdate() {
 		curl --insecure -O -s https://raw.githubusercontent.com/minerstat/minerstat-asic-hub/master/minerstat.sh
 	done
 }
+
+#############################
+# SYNC LOOP
+maintenance
+aupdate
+while true
+do 
+	sleep 45
+	check
+done
