@@ -180,6 +180,7 @@ remoteCMD() {
 				echo "CONFIG => Updating $CONIFG_PATH/$CONFIG_FILE "
 				curl -f --silent -L --insecure "http://static.minerstat.farm/asicproxy.php?token=$TOKEN&worker=$WORKER&type=$ASIC" > "$CONIFG_PATH/$CONFIG_FILE"
 				POSTDATA="REBOOT"
+				sleep 1
 			#else
 				#echo "CONFIG => Config request was blank."
 			#fi
@@ -188,6 +189,7 @@ remoteCMD() {
 	if [ $POSTDATA == "RESTART" ]; then
 		if [ $ASIC == "antminer" ]; then
 			echo "RESTARTING MINER..."
+			sleep 2
 			/etc/init.d/cgminer.sh restart &> /dev/null
 			/etc/init.d/bmminer.sh restart &> /dev/null
 		else
@@ -195,10 +197,12 @@ remoteCMD() {
 		fi
 	fi
 	if [ $POSTDATA == "REBOOT" ]; then
+		sleep 2
 		echo "REBOOTING MINER..."
 		/sbin/shutdown -r now
 	fi
 	if [ $POSTDATA == "SHUTDOWN" ]; then
+		sleep 2
 		echo "SHUTTING DOWN..."
 		/sbin/shutdown -h now
 	fi
