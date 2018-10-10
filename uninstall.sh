@@ -16,9 +16,9 @@ if [ -d "/config" ]; then
 			sed -i '$ d' /config/network.conf
 		fi
 	fi
-	
+fi	
 # BMMINER & SGMINER CRON DELETE
-rm /etc/init.d/minerstat
+rm /etc/init.d/minerstat &> /dev/null
 
 # MINERSTAT REMOVE
 	# ANTMINER
