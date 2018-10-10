@@ -37,6 +37,10 @@ if grep -q libcurl.so.5 "error.log"; then
 fi
 
 #############################
+# AUTO UPDATE
+curl --insecure -O -s https://raw.githubusercontent.com/minerstat/minerstat-asic-hub/master/minerstat.sh
+
+#############################
 # CORE FUNCTIONS
 
 # 1) ASSIGN JOBS FOR DIFFERENT ASIC TYPES
