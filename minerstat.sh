@@ -2,12 +2,12 @@
 
 sleep 1
 
-if ! screen -list | grep -q "minerstat-sync"; then
+if ! screen -list | grep -q "ms-run"; then
 
     echo "--------- MINERSTAT ASIC HUB -----------"
 	
 	# Fake Process, Boot & Double instance protection
-	screen -A -m -d -S minerstat-sync sleep 365d
+	screen -A -m -d -S ms-run sleep 365d
 	
     rm error.log &> /dev/null
     cat minerstat.txt 2> error.log
