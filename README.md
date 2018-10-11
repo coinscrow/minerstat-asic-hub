@@ -28,7 +28,7 @@ Login with SSH to your asic and execute the following command:
 cd /tmp && wget -O install.sh http://static.minerstat.farm/github/install.sh && chmod 777 *.sh && sh install.sh ACCESS_KEY WORKER
 ```
 
-Make sure you replace **ACCESS_KEY** / **WORKER** to your details in the end of the above command.
+Make sure you replace **ACCESS_KEY** / **WORKER** to your details in the end of the above command. [Case sensitive!]
 
 Default SSH Login
 
