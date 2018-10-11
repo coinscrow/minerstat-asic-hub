@@ -23,6 +23,10 @@ if [ -f "/etc/init.d/cgminer.sh" ]; then
     rm "/config/bmminer.conf" &> /dev/null
 fi
 
+if [ -f "/etc/init.d/bmminer.sh" ]; then
+    rm "/config/cgminer.conf" &> /dev/null
+fi
+
 #############################
 # DETECT FOLDER
 if [ -d "/config" ]; then
