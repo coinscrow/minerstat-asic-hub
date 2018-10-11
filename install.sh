@@ -102,7 +102,7 @@ if [ $1 != "" ]; then
         echo "---- USER -----"
         echo -n > minerstat.txt
         echo "TOKEN=$1" > minerstat.txt
-        UPPER=$($2 | | awk '{print toupper($0)}')
+        UPPER=$($2 | awk '{print toupper($0)}')
         echo "WORKER=$UPPER" >> minerstat.txt
         cat minerstat.txt # Echo after finish
     else
