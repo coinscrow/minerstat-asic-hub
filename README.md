@@ -14,7 +14,7 @@ Supported and tested ASICs:
 * Antminer D3 / D3 Blissz
 * Antminer E3
 * Antminer L3+ / L3++
-* Antminer S1-S9 (All firmware)
+* Antminer S1-S9, S9i, S9j (All firmware)
 * Antminer T9 / T9+
 * Antminer X3
 * Antminer Z9 / Z9-Mini
