@@ -5,6 +5,7 @@ echo "Uninstall => Start"
 
 # kill running process
 screen -S minerstat -X quit
+screen -S ms-run -X quit # kill running process
 echo "minerstat => Killed"
 
 

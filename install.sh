@@ -80,6 +80,7 @@ cd $CONFIG_PATH
 #############################
 # REMOVE PREV. Installation
 screen -S minerstat -X quit # kill running process
+screen -S ms-run -X quit # kill running process
 rm -rf minerstat &> /dev/null
 rm minerstat.sh &> /dev/null
 
