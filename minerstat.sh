@@ -31,6 +31,7 @@ if ! screen -list | grep -q "ms-run"; then
     # CONFIG
     CONFIG_PATH="/tmp"
     CONFIG_FILE="null"
+    SYNC_ROUND=0
 
     #############################
     # TESTING CURL
@@ -167,6 +168,18 @@ if ! screen -list | grep -q "ms-run"; then
     # 5) CHECK SERVER RESPOSNE FOR POSSIBLE PENDING REMOTE COMMANDS
     remoteCMD() {
 
+		# AutoUpdate
+		# 1 Round is 45sec, X + 45
+		# 12 hour (60 x 60) x 12 = 43,200
+		
+		$SYNC_ROUND = $(($SYNC_ROUND + 45))
+				
+		if [ "$SYNC_ROUND" -gt "43200" ]; then
+			cd "$CONFIG_PATH"
+			curl --insecure -O -s https://raw.githubusercontent.com/minerstat/minerstat-asic-hub/master/minerstat.sh
+		fi
+	
+		
         # DEBUG
         echo "API => Updated (Waiting for the next sync)"
 
