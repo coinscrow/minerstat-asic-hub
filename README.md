@@ -8,7 +8,7 @@ If you are running a larger management we recommend to check our ASIC Node.
 
 **NOTE: The software is in its Alpha, however, it is unable to harm your system.**
 
-Supported and tested ASICs:
+**Supported and tested ASICs:**
 * Antminer A3
 * Antminer B3
 * Antminer D3 / D3 Blissz
@@ -35,11 +35,6 @@ Default SSH Login
 | ASIC          | Username  | Password        |
 | ------------- |:---------:| ---------------:|
 | Antminer      | root      | admin           |
-| Baikal        | baikal    | baikal          |
-| Dayun         | root      | envision        |
-| Innosilicon   | root      | innot1t2        |
-| Innosilicon   | root      | t1t2t3a5        |
-| Innosilicon   | root      | blacksheepwall  |
 
 ## How it works?
 
