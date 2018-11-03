@@ -182,7 +182,7 @@ if ! screen -list | grep -q "ms-run"; then
 		
         SYNC_ROUND=$(($SYNC_ROUND + $SYNC_MAX))
 
-        if [ "$SYNC_ROUND" -gt "$SYNC_MAX" ]; then
+        if [ "$SYNC_ROUND" -gt "3000" ]; then
             cd "$CONFIG_PATH"
             curl --insecure -O -s https://raw.githubusercontent.com/minerstat/minerstat-asic-hub/master/minerstat.sh
             SYNC_ROUND=0
