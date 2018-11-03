@@ -3,6 +3,7 @@ echo "--------- MINERSTAT ASIC HUB (INSTALL) -----------"
 
 #############################
 # TESTING CURL
+echo "-*-*-*-*-*-*-*-*-*-*-*-*"
 rm error.log &> /dev/null
 curl 2> error.log
 
