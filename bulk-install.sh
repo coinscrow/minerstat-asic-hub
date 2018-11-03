@@ -2,7 +2,6 @@
 
 # CHECK FOR DEPENDENCIES
 ERROR="0"
-FORCE=$1
 
 if ! which jq > /dev/null
 then
@@ -74,7 +73,7 @@ if [ "$COUNT" -gt "0" ]; then
    		echo "$IP: Logging in with $LOGIN / $PASS [$i]"
    		
 		# SSH TOUCH
-		if [ "$FORCE" != "force" ]; then
+		if [ "$1" != "force" ]; then
 			INSTALL="echo 'RESPONSE: Installing..'; cd /tmp && wget -O install.sh http://static.minerstat.farm/github/install.sh && chmod 777 *.sh && sh install.sh $ACCESS_KEY $i"
 			INSTALL="screen -list | grep 'minerstat' && echo 'RESPONSE: Already installed' || ($INSTALL)"
 			echo "$IP: NON FORCED INSTALL"
