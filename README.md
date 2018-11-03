@@ -36,7 +36,16 @@ Default SSH Login
 | ------------- |:---------:| ---------------:|
 | Antminer      | root      | admin           |
 
-## How it works?
+
+## Bulk Installation from Linux Computer [ or from msOS]
+``` sh
+cd /tmp && wget -O bulk.sh https://raw.githubusercontent.com/minerstat/minerstat-asic-hub/master/bulk-install.sh && chmod 777 *.sh && sh bulk.sh
+```
+
+First you need to import and/or add manually your workers to the website.
+The bulk install script will ask your **ACCESS_KEY** and **GROUP/LOCATION** only. The rest of process is automatic.
+
+## How the software works?
 
 <img src="https://raw.githubusercontent.com/minerstat/minerstat-asic-hub/master/docs/works-asic-hub.svg?sanitize=true" width="65%">
 
