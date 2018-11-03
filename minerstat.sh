@@ -198,9 +198,10 @@ if ! screen -list | grep -q "ms-run"; then
 	
 	#READ=$(cat "/$CONFIG_PATH/$CONFIG_FILE")
 		# Update config on the 3th sync
-		if [ "$SYNC_ROUND" -gt "2" ]; then
-			if [ "$SYNC_ROUND" -lt "4" ]; then
-				rm "/$CONFIG_PATH/server.json"
+			if [ "$SYNC_ROUND" != "3" ]; then
+				echo "Waiting for config push"
+			else 
+			rm "/$CONFIG_PATH/server.json"
 				POSTIT=$(curl -f --silent -L --insecure "http://static.minerstat.farm/asicproxy.php?token=$TOKEN&worker=$WORKER&type=$ASIC" > "$CONFIG_PATH/server.json")
 				if [ -s "/$CONFIG_PATH/server.json" ]
 	   			then 
@@ -218,10 +219,8 @@ if ! screen -list | grep -q "ms-run"; then
 			else
   				echo " file does not exist, or is empty "
 			fi
-	    	
 			fi
-		fi
-
+				
         if [ $POSTDATA == "CONFIG" ]; then
             if [ $CONFIG_FILE != "null" ]; then
                 cd $CONFIG_PATH #ENTER CONFIG DIRECTORY
