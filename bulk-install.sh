@@ -61,7 +61,9 @@ COUNT=$(echo $IP | wc -w)
 
 if [ "$COUNT" -gt "0" ]; then
 	ARRAY=$(echo $row | jq 'to_entries|map([.key] + .value.a|map(tostring)|join(" "))')
-		
+	echo "DEBUG OUTPUT, IP LIST:"
+	echo $ARRAY
+	
 	for i in $(echo $ARRAY | jq  -r '.[]')    
 	do
     	echo ""
@@ -72,6 +74,7 @@ if [ "$COUNT" -gt "0" ]; then
    		echo "----------------------------------------"
    		echo "$IP: Logging in with $LOGIN / $PASS [$i]"
    		
+		
 		# SSH TOUCH
 		if [ "$1" != "force" ]; then
 			INSTALL="echo 'RESPONSE: Installing..'; cd /tmp && wget -O install.sh http://static.minerstat.farm/github/install.sh && chmod 777 *.sh && sh install.sh $ACCESS_KEY $i"
