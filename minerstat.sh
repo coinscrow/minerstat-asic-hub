@@ -21,6 +21,7 @@ if ! screen -list | grep -q "ms-run"; then
 
     ASIC="null"
     MINER="null"
+    MAINT="0"
 
     # SYNC
     FOUND="null"
@@ -173,6 +174,11 @@ if ! screen -list | grep -q "ms-run"; then
         # AutoUpdate
         # 1 Round is 45sec, X + 45
         # 12 hour (60 x 60) x 12 = 43,200
+	
+	if [ "$MAINT" != "1" ]; then
+		MAINT="1"
+		maintenance
+	fi
 		
         SYNC_ROUND=$(($SYNC_ROUND + $SYNC_MAX))
 
@@ -270,7 +276,6 @@ if ! screen -list | grep -q "ms-run"; then
             # BUT THESE CHANGES CAN'T BE SKIPPER OR UNLESS THE MACHINE BECOME UNSTABLE.
 
         fi
-        check
     }
 
     #############################
@@ -283,7 +288,7 @@ if ! screen -list | grep -q "ms-run"; then
 
     #############################
     # SYNC LOOP
-    maintenance
+    check
     #aupdate
     while true
     do
