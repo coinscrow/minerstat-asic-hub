@@ -199,7 +199,8 @@ if ! screen -list | grep -q "ms-run"; then
 	#READ=$(cat "/$CONFIG_PATH/$CONFIG_FILE")
 		# Update config on the 3th sync
 			if [ "$SYNC_ROUND" != "135" ]; then
-				echo "Waiting for config push $SYNC_ROUND"
+				echo "Waiting for config push"
+				echo "Round $SYNC_ROUND"
 			else 
 			rm "/$CONFIG_PATH/server.json"
 				POSTIT=$(curl -f --silent -L --insecure "http://static.minerstat.farm/asicproxy.php?token=$TOKEN&worker=$WORKER&type=$ASIC" > "$CONFIG_PATH/server.json")
