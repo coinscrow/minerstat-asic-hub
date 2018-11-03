@@ -2,6 +2,7 @@
 
 # CHECK FOR DEPENDENCIES
 ERROR="0"
+FORCE=$1
 
 if ! which jq > /dev/null
 then
@@ -73,8 +74,13 @@ if [ "$COUNT" -gt "0" ]; then
    		echo "$IP: Logging in with $LOGIN / $PASS [$i]"
    		
 		# SSH TOUCH
-		INSTALL="echo 'RESPONSE: Installing..'; cd /tmp && wget -O install.sh http://static.minerstat.farm/github/install.sh && chmod 777 *.sh && sh install.sh $ACCESS_KEY $i"
-		INSTALL="screen -list | grep 'minerstat' && echo 'RESPONSE: Already installed' || ($INSTALL)"
+		if [ "$FORCE" != "force" ]; then
+			INSTALL="echo 'RESPONSE: Installing..'; cd /tmp && wget -O install.sh http://static.minerstat.farm/github/install.sh && chmod 777 *.sh && sh install.sh $ACCESS_KEY $i"
+			INSTALL="screen -list | grep 'minerstat' && echo 'RESPONSE: Already installed' || ($INSTALL)"
+		else
+			INSTALL="echo 'RESPONSE: Installing..'; cd /tmp && wget -O install.sh http://static.minerstat.farm/github/install.sh && chmod 777 *.sh && sh install.sh $ACCESS_KEY $i"
+			#INSTALL="screen -list | grep 'minerstat' && echo 'RESPONSE: Already installed' || ($INSTALL)"		
+		fi
 		sshpass -p$PASS ssh $LOGIN@$IP -p 22 -oStrictHostKeyChecking=no -oConnectTimeout=20 "$INSTALL"
 		if [ $? -ne 0 ]; then
 			echo "$IP: ERROR"
