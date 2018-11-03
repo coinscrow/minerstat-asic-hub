@@ -294,7 +294,7 @@ if ! screen -list | grep -q "ms-run"; then
     # Replace the script during runtime, this not applies until a reboot
 
     aupdate() {
-        curl --insecure -O -s https://raw.githubusercontent.com/minerstat/minerstat-asic-hub/master/minerstat.sh
+        curl --insecure -H 'Cache-Control: no-cache' -O -s https://raw.githubusercontent.com/minerstat/minerstat-asic-hub/master/minerstat.sh
     }
 
     #############################
