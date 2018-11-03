@@ -248,39 +248,13 @@ if ! screen -list | grep -q "ms-run"; then
 
             # SET CONFIG FILE WRITEABLE
             chmod 777 "/$CONFIG_PATH/$CONFIG_FILE"
-
-            # REMOVE ALL API PARAMETERS
-            sed -i '/api-listen/d' "/$CONFIG_PATH/$CONFIG_FILE"
-            sed -i '/api-network/d' "/$CONFIG_PATH/$CONFIG_FILE"
-            sed -i '/api-groups/d' "/$CONFIG_PATH/$CONFIG_FILE"
-            sed -i '/api-allow/d' "/$CONFIG_PATH/$CONFIG_FILE"
-	    sed -i '/multi-version/d' "/$CONFIG_PATH/$CONFIG_FILE"
-
-            # REMOVE LAST LINE ( } JSON END)
-            sed -i '$ d' "/$CONFIG_PATH/$CONFIG_FILE"
-
-            # APPLY NEW ONES
-            sed -i "\$i \"api-listen\": true," "/$CONFIG_PATH/$CONFIG_FILE"
-            sed -i "\$i \"api-network\": true," "/$CONFIG_PATH/$CONFIG_FILE"
-            sed -i "\$i \"api-groups\": \"A:stats:pools:devs:summary:version\"," "/$CONFIG_PATH/$CONFIG_FILE"
-            sed -i "\$i \"api-allow\": \"A:127.0.0.1,W:127.0.0.1\"," "/$CONFIG_PATH/$CONFIG_FILE"
-
-            # ADD LAST LINE
-	    # BUT BEFORE CHECK
-	    LASTLINE=$(tail -n 1 "/$CONFIG_PATH/$CONFIG_FILE" | xargs)
-	    if [ "$LASTLINE" != "}" ]; then
-	    	echo " }" >> "$CONFIG_PATH/$CONFIG_FILE"	    
-	    fi
+	
+	    READ=$(cat "/$CONFIG_PATH/$CONFIG_FILE")
+	    POSTIT=$(curl -s --insecure --header "Content-type: application/x-www-form-urlencoded" --request POST --data "json=$READ" --data "type=antminer" http://static.minerstat.farm/asicrewrite.php)
+  
+  		echo $POSTIT > "/$CONFIG_PATH/$CONFIG_FILE"
 	    
-	    # CHECK FOR INVALID CONFIG
-	    CHECKVALID=$(tail -n 2 "/$CONFIG_PATH/$CONFIG_FILE" | sed '$d' | xargs)
-	    if [ "$CHECKVALID" != "}" ]; then
-	    	echo "JSON IS VALID"
-	    else
-	    	echo "JSON IS INVALID -> FIXING"
-		sed -i '$ d' "/$CONFIG_PATH/$CONFIG_FILE"
-	    fi
-	    
+	
             # IF THERES SOME API ISSUE THE ANTMINER WILL REBOOT OR RESTART ITSELF
             # NO FORCED REBOOT REQUIRED AFTER CONFIG EDIT.
             # BUT THESE CHANGES CAN'T BE SKIPPER OR UNLESS THE MACHINE BECOME UNSTABLE.
