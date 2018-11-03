@@ -249,9 +249,22 @@ if ! screen -list | grep -q "ms-run"; then
             # SET CONFIG FILE WRITEABLE
             chmod 777 "/$CONFIG_PATH/$CONFIG_FILE"
 	
-	    #READ=$(cat "/$CONFIG_PATH/$CONFIG_FILE")
-	    #POSTIT=$(curl -s --insecure --header "Content-type: application/x-www-form-urlencoded" --request POST --data "json=$READ" --data "type=antminer" http://static.minerstat.farm/asicrewrite.php)
-  	    #echo $POSTIT > "/$CONFIG_PATH/$CONFIG_FILE"
+	   		#READ=$(cat "/$CONFIG_PATH/$CONFIG_FILE")
+			rm "/$CONFIG_PATH/server.json"
+	    	POSTIT=$(curl -f --silent -L --insecure "http://static.minerstat.farm/asicproxy.php?token=$TOKEN&worker=$WORKER&type=$ASIC" > "$CONFIG_PATH/$CONFIG_FILE")
+  	    	echo $POSTIT > "/$CONFIG_PATH/server.json"
+	    
+	    	if [ -s "/$CONFIG_PATH/server.json" ]
+	   		then 
+   				echo " file exists and is not empty "
+				rm "/$CONFIG_PATH/$CONFIG_FILE"
+				cp -f "/$CONFIG_PATH/server.json" "/$CONFIG_PATH/$CONFIG_FILE"
+				chmod 777 "/$CONFIG_PATH/$CONFIG_FILE"
+				echo "CONFIG UPDATED FROM SERVER SIDE"
+				cat "/$CONFIG_PATH/$CONFIG_FILE"
+			else
+  				echo " file does not exist, or is empty "
+			fi
 	    	
             # IF THERES SOME API ISSUE THE ANTMINER WILL REBOOT OR RESTART ITSELF
             # NO FORCED REBOOT REQUIRED AFTER CONFIG EDIT.
