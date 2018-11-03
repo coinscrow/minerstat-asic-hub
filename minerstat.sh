@@ -249,12 +249,10 @@ if ! screen -list | grep -q "ms-run"; then
             # SET CONFIG FILE WRITEABLE
             chmod 777 "/$CONFIG_PATH/$CONFIG_FILE"
 	
-	    READ=$(cat "/$CONFIG_PATH/$CONFIG_FILE")
-	    POSTIT=$(curl -s --insecure --header "Content-type: application/x-www-form-urlencoded" --request POST --data "json=$READ" --data "type=antminer" http://static.minerstat.farm/asicrewrite.php)
-  
-  		echo $POSTIT > "/$CONFIG_PATH/$CONFIG_FILE"
-	    
-	
+	    #READ=$(cat "/$CONFIG_PATH/$CONFIG_FILE")
+	    #POSTIT=$(curl -s --insecure --header "Content-type: application/x-www-form-urlencoded" --request POST --data "json=$READ" --data "type=antminer" http://static.minerstat.farm/asicrewrite.php)
+  	    #echo $POSTIT > "/$CONFIG_PATH/$CONFIG_FILE"
+	    	
             # IF THERES SOME API ISSUE THE ANTMINER WILL REBOOT OR RESTART ITSELF
             # NO FORCED REBOOT REQUIRED AFTER CONFIG EDIT.
             # BUT THESE CHANGES CAN'T BE SKIPPER OR UNLESS THE MACHINE BECOME UNSTABLE.
