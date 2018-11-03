@@ -67,9 +67,9 @@ if [ "$COUNT" -gt "0" ]; then
 	for i in $(echo $ARRAY | jq  -r '.[]')    
 	do
     	echo ""
-   		IP=$(echo $row | jq -r " .$i.info.os.localip")
-   		LOGIN=$(echo $row | jq -r " .$i.info.auth.user")
-   		PASS=$(echo $row | jq -r " .$i.info.auth.pass")
+   		IP=$(echo $row | jq -r " .[\"$i\"].info.os.localip")
+   		LOGIN=$(echo $row | jq -r " .[\"$i\"].info.auth.user")
+   		PASS=$(echo $row | jq -r " .[\"$i\"].info.auth.pass")
    		
    		echo "----------------------------------------"
    		echo "$IP: Logging in with $LOGIN / $PASS [$i]"
