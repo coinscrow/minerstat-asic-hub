@@ -77,9 +77,11 @@ if [ "$COUNT" -gt "0" ]; then
 		if [ "$FORCE" != "force" ]; then
 			INSTALL="echo 'RESPONSE: Installing..'; cd /tmp && wget -O install.sh http://static.minerstat.farm/github/install.sh && chmod 777 *.sh && sh install.sh $ACCESS_KEY $i"
 			INSTALL="screen -list | grep 'minerstat' && echo 'RESPONSE: Already installed' || ($INSTALL)"
+			echo "$IP: NON FORCED INSTALL"
 		else
 			INSTALL="echo 'RESPONSE: Installing..'; cd /tmp && wget -O install.sh http://static.minerstat.farm/github/install.sh && chmod 777 *.sh && sh install.sh $ACCESS_KEY $i"
-			#INSTALL="screen -list | grep 'minerstat' && echo 'RESPONSE: Already installed' || ($INSTALL)"		
+			#INSTALL="screen -list | grep 'minerstat' && echo 'RESPONSE: Already installed' || ($INSTALL)"
+			echo "$IP: FORCE"
 		fi
 		sshpass -p$PASS ssh $LOGIN@$IP -p 22 -oStrictHostKeyChecking=no -oConnectTimeout=20 "$INSTALL"
 		if [ $? -ne 0 ]; then
