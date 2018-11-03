@@ -97,7 +97,7 @@ mount -o remount,rw  / #remount filesystem
 # DOWNLOAD
 chmod 777 minerstat.sh &> /dev/null
 rm minerstat.sh &> /dev/null
-curl --insecure -O -s https://raw.githubusercontent.com/minerstat/minerstat-asic-hub/master/minerstat.sh
+curl --insecure -H 'Cache-Control: no-cache' -O -s https://raw.githubusercontent.com/minerstat/minerstat-asic-hub/master/minerstat.sh
 chmod 777 minerstat.sh &> /dev/null
 
 #############################
@@ -123,7 +123,7 @@ fi
 #############################
 # SETTING UP CRON
 rm runmeonboot &> /dev/null
-curl --insecure -O -s https://raw.githubusercontent.com/minerstat/minerstat-asic-hub/master/runmeonboot
+curl --insecure -H 'Cache-Control: no-cache' -O -s https://raw.githubusercontent.com/minerstat/minerstat-asic-hub/master/runmeonboot
 chmod 777 runmeonboot &> /dev/null
 #ln -s runmeonboot /etc/rc.d/
 
@@ -153,7 +153,7 @@ CURRCONF=$(cat "$CONFIG_PATH/$CONFIG_FILE")
 echo "$CURRCONF"
 
 #if [ $CURRCONF != "" ]; then
-POSTREQUEST=$(curl -s --insecure --header "Content-type: application/x-www-form-urlencoded" --request POST --data "token=$TOKEN" --data "worker=$WORKER" --data "node=$CURRCONF" https://api.minerstat.com/v2/set_asic_config.php)
+POSTREQUEST=$(curl -s --insecure -H 'Cache-Control: no-cache' --header "Content-type: application/x-www-form-urlencoded" --request POST --data "token=$TOKEN" --data "worker=$WORKER" --data "node=$CURRCONF" https://api.minerstat.com/v2/set_asic_config.php)
 echo "CONFIG POST => $POSTREQUEST"
 #fi
 
