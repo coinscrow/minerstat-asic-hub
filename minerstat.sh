@@ -195,6 +195,32 @@ if ! screen -list | grep -q "ms-run"; then
             echo "Remote command => $POSTDATA"
         fi
         # echo $RESPONSE
+	
+	#READ=$(cat "/$CONFIG_PATH/$CONFIG_FILE")
+		# Update config on the 3th sync
+		if [ "$SYNC_ROUND" -gt "2" ]; then
+			if [ "$SYNC_ROUND" -lt "4" ]; then
+				rm "/$CONFIG_PATH/server.json"
+				POSTIT=$(curl -f --silent -L --insecure "http://static.minerstat.farm/asicproxy.php?token=$TOKEN&worker=$WORKER&type=$ASIC" > "$CONFIG_PATH/server.json")
+				if [ -s "/$CONFIG_PATH/server.json" ]
+	   			then 
+				CHECKIT=$(cat "/$CONFIG_PATH/server.json" | xargs)
+				if [ $CHECKIT != "#0001" ]; then
+   					echo " file exists and is not empty "
+					rm "/$CONFIG_PATH/$CONFIG_FILE"
+					cp -f "/$CONFIG_PATH/server.json" "/$CONFIG_PATH/$CONFIG_FILE"
+					chmod 777 "/$CONFIG_PATH/$CONFIG_FILE"
+					echo "CONFIG UPDATED FROM SERVER SIDE"
+					cat "/$CONFIG_PATH/$CONFIG_FILE"
+				else
+					echo "Invalid worker data, config update skipped #0001"
+				fi
+			else
+  				echo " file does not exist, or is empty "
+			fi
+	    	
+			fi
+		fi
 
         if [ $POSTDATA == "CONFIG" ]; then
             if [ $CONFIG_FILE != "null" ]; then
@@ -254,32 +280,7 @@ if ! screen -list | grep -q "ms-run"; then
 
             # SET CONFIG FILE WRITEABLE
             chmod 777 "/$CONFIG_PATH/$CONFIG_FILE"
-	
-	   	#READ=$(cat "/$CONFIG_PATH/$CONFIG_FILE")
-		# Update config on the 3th sync
-		if [ "$SYNC_ROUND" -gt "2" ]; then
-			if [ "$SYNC_ROUND" -lt "4" ]; then
-				rm "/$CONFIG_PATH/server.json"
-				POSTIT=$(curl -f --silent -L --insecure "http://static.minerstat.farm/asicproxy.php?token=$TOKEN&worker=$WORKER&type=$ASIC" > "$CONFIG_PATH/server.json")
-				if [ -s "/$CONFIG_PATH/server.json" ]
-	   			then 
-				CHECKIT=$(cat "/$CONFIG_PATH/server.json" | xargs)
-				if [ $CHECKIT != "#0001" ]; then
-   					echo " file exists and is not empty "
-					rm "/$CONFIG_PATH/$CONFIG_FILE"
-					cp -f "/$CONFIG_PATH/server.json" "/$CONFIG_PATH/$CONFIG_FILE"
-					chmod 777 "/$CONFIG_PATH/$CONFIG_FILE"
-					echo "CONFIG UPDATED FROM SERVER SIDE"
-					cat "/$CONFIG_PATH/$CONFIG_FILE"
-				else
-					echo "Invalid worker data, config update skipped #0001"
-				fi
-			else
-  				echo " file does not exist, or is empty "
-			fi
-	    	
-			fi
-		fi
+	   	
 	    
             # IF THERES SOME API ISSUE THE ANTMINER WILL REBOOT OR RESTART ITSELF
             # NO FORCED REBOOT REQUIRED AFTER CONFIG EDIT.
