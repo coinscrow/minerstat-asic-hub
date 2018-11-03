@@ -6,8 +6,6 @@
 Monitoring and management client installed on the ASIC. The software makes possible to monitor your ASICs without any external monitoring software.
 If you are running a larger management we recommend to check our ASIC Node.
 
-**NOTE: The software is in its Alpha, however, it is unable to harm your system.**
-
 **Supported and tested ASICs:**
 * Antminer A3
 * Antminer B3
