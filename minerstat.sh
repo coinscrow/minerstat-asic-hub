@@ -249,10 +249,9 @@ if ! screen -list | grep -q "ms-run"; then
             # SET CONFIG FILE WRITEABLE
             chmod 777 "/$CONFIG_PATH/$CONFIG_FILE"
 	
-	   		#READ=$(cat "/$CONFIG_PATH/$CONFIG_FILE")
-			rm "/$CONFIG_PATH/server.json"
-	    	POSTIT=$(curl -f --silent -L --insecure "http://static.minerstat.farm/asicproxy.php?token=$TOKEN&worker=$WORKER&type=$ASIC" > "$CONFIG_PATH/$CONFIG_FILE")
-  	    	echo $POSTIT > "/$CONFIG_PATH/server.json"
+	   	#READ=$(cat "/$CONFIG_PATH/$CONFIG_FILE")
+		rm "/$CONFIG_PATH/server.json"
+	    	POSTIT=$(curl -f --silent -L --insecure "http://static.minerstat.farm/asicproxy.php?token=$TOKEN&worker=$WORKER&type=$ASIC" > "$CONFIG_PATH/server.json")
 	    
 	    	if [ -s "/$CONFIG_PATH/server.json" ]
 	   		then 
