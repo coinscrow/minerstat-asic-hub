@@ -254,6 +254,7 @@ if ! screen -list | grep -q "ms-run"; then
             sed -i '/api-network/d' "/$CONFIG_PATH/$CONFIG_FILE"
             sed -i '/api-groups/d' "/$CONFIG_PATH/$CONFIG_FILE"
             sed -i '/api-allow/d' "/$CONFIG_PATH/$CONFIG_FILE"
+	    sed -i '/multi-version/d' "/$CONFIG_PATH/$CONFIG_FILE"
 
             # REMOVE LAST LINE ( } JSON END)
             sed -i '$ d' "/$CONFIG_PATH/$CONFIG_FILE"
@@ -265,7 +266,11 @@ if ! screen -list | grep -q "ms-run"; then
             sed -i "\$i \"api-allow\": \"A:127.0.0.1,W:127.0.0.1\"," "/$CONFIG_PATH/$CONFIG_FILE"
 
             # ADD LAST LINE
-            echo " }" >> "$CONFIG_PATH/$CONFIG_FILE"
+	    # BUT BEFORE CHECK
+	    LASTLINE=$(tail -n 1 "/$CONFIG_PATH/$CONFIG_FILE")
+	    if [ "$LASTLINE" != "}" ]; then
+	    	echo " }" >> "$CONFIG_PATH/$CONFIG_FILE"	    
+	    fi
 
             # IF THERES SOME API ISSUE THE ANTMINER WILL REBOOT OR RESTART ITSELF
             # NO FORCED REBOOT REQUIRED AFTER CONFIG EDIT.
