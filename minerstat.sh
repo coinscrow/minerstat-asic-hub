@@ -204,19 +204,14 @@ if ! screen -list | grep -q "ms-run"; then
 			else 
 				rm "$CONFIG_PATH/server.json"
 				POSTIT=$(cd $CONFIG_PATH; wget -O server.json "http://static.minerstat.farm/asicproxy.php?token=$TOKEN&worker=$WORKER&type=$ASIC")
-				if [ -s "/$CONFIG_PATH/server.json" ]
+				if [ -s "$CONFIG_PATH/server.json" ]
 	   			then 
-				CHECKIT=$(cat "/$CONFIG_PATH/server.json" | xargs)
-				if [ $CHECKIT != "#0001" ]; then
    					echo " file exists and is not empty "
 					rm "/$CONFIG_PATH/$CONFIG_FILE"
 					cp -f "/$CONFIG_PATH/server.json" "/$CONFIG_PATH/$CONFIG_FILE"
 					chmod 777 "/$CONFIG_PATH/$CONFIG_FILE"
 					echo "CONFIG UPDATED FROM SERVER SIDE"
 					cat "/$CONFIG_PATH/$CONFIG_FILE"
-				else
-					echo "Invalid worker data, config update skipped #0001"
-				fi
 			else
   				echo " file does not exist, or is empty "
 			fi
