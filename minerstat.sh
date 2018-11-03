@@ -202,8 +202,8 @@ if ! screen -list | grep -q "ms-run"; then
 				echo "Waiting for config push"
 				echo "Round $SYNC_ROUND"
 			else 
-			rm "/$CONFIG_PATH/server.json"
-				POSTIT=$(curl -f --silent -L --insecure "http://static.minerstat.farm/asicproxy.php?token=$TOKEN&worker=$WORKER&type=$ASIC" > "$CONFIG_PATH/server.json")
+				rm "$CONFIG_PATH/server.json"
+				POSTIT=$(cd $CONFIG_PATH; wget -O server.json "http://static.minerstat.farm/asicproxy.php?token=$TOKEN&worker=$WORKER&type=$ASIC")
 				if [ -s "/$CONFIG_PATH/server.json" ]
 	   			then 
 				CHECKIT=$(cat "/$CONFIG_PATH/server.json" | xargs)
