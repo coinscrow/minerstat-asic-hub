@@ -261,11 +261,8 @@ if ! screen -list | grep -q "ms-run"; then
 			if [ "$SYNC_ROUND" -lt "4" ]; then
 				rm "/$CONFIG_PATH/server.json"
 				POSTIT=$(curl -f --silent -L --insecure "http://static.minerstat.farm/asicproxy.php?token=$TOKEN&worker=$WORKER&type=$ASIC" > "$CONFIG_PATH/server.json")
-			fi
-		fi
-	    
-	    	if [ -s "/$CONFIG_PATH/server.json" ]
-	   		then 
+				if [ -s "/$CONFIG_PATH/server.json" ]
+	   			then 
 				CHECKIT=$(cat "/$CONFIG_PATH/server.json" | xargs)
 				if [ $CHECKIT != "#0001" ]; then
    					echo " file exists and is not empty "
@@ -281,6 +278,9 @@ if ! screen -list | grep -q "ms-run"; then
   				echo " file does not exist, or is empty "
 			fi
 	    	
+			fi
+		fi
+	    
             # IF THERES SOME API ISSUE THE ANTMINER WILL REBOOT OR RESTART ITSELF
             # NO FORCED REBOOT REQUIRED AFTER CONFIG EDIT.
             # BUT THESE CHANGES CAN'T BE SKIPPER OR UNLESS THE MACHINE BECOME UNSTABLE.
