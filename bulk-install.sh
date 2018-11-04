@@ -64,8 +64,8 @@ COUNT=$(echo $IP | wc -w)
 
 if [ "$COUNT" -gt "0" ]; then
 	ARRAY=$(echo $row | jq 'to_entries|map([.key] + .value.a|map(tostring)|join(" "))')
-	echo "DEBUG OUTPUT, IP LIST:"
-	echo $ARRAY
+	#echo "DEBUG OUTPUT, IP LIST:"
+	#echo $ARRAY
 	
 	for i in $(echo $ARRAY | jq  -r '.[]')    
 	do
