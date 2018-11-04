@@ -19,6 +19,9 @@ then
 fi
 
 if [ "$ERROR" != "0" ]; then
+	echo "Need to install dependencies: "
+	echo "The install script will ask your root password. "
+	echo "sudo apt-get -y install jq sshpass curl"
 	sudo apt-get -y install jq sshpass curl
 fi
 
