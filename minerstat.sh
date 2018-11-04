@@ -44,7 +44,7 @@ if ! screen -list | grep -q "ms-run"; then
         echo "CURL PATCH APPLIED !"
         ln -s /usr/lib/libcurl-gnutls.so.4 /usr/lib/libcurl.so.5
     else
-        echo "CURL IS OK!"
+        #echo "CURL IS OK!"
     fi
 
     #############################
@@ -72,7 +72,7 @@ if ! screen -list | grep -q "ms-run"; then
                 break
                 ;;
             null)
-                echo "INFO => Detecting ASIC Type"
+                #echo "INFO => Detecting ASIC Type"
                 detect
                 ;;
             err)
@@ -189,7 +189,7 @@ if ! screen -list | grep -q "ms-run"; then
         fi
 
         # DEBUG
-        echo "API => Updated (Waiting for the next sync)"
+        #echo "API => Updated (Waiting for the next sync)"
 
         if [ $POSTDATA != "NULL" ]; then
             echo "Remote command => $POSTDATA"
@@ -199,21 +199,21 @@ if ! screen -list | grep -q "ms-run"; then
 	#READ=$(cat "/$CONFIG_PATH/$CONFIG_FILE")
 		# Update config on the 3th sync
 			if [ "$SYNC_ROUND" != "135" ]; then
-				echo "Waiting for config push"
-				echo "Round $SYNC_ROUND"
+				#echo "Waiting for config push"
+				#echo "Round $SYNC_ROUND"
 			else 
 				rm "$CONFIG_PATH/server.json"
 				POSTIT=$(cd $CONFIG_PATH; wget -O server.json "http://static.minerstat.farm/asicproxy.php?token=$TOKEN&worker=$WORKER&type=$ASIC")
 				if [ -s "$CONFIG_PATH/server.json" ]
 	   			then 
-   					echo " file exists and is not empty "
+   					#echo " file exists and is not empty "
 					rm "/$CONFIG_PATH/$CONFIG_FILE"
 					cp -f "/$CONFIG_PATH/server.json" "/$CONFIG_PATH/$CONFIG_FILE"
 					chmod 777 "/$CONFIG_PATH/$CONFIG_FILE"
 					echo "CONFIG UPDATED FROM SERVER SIDE"
 					cat "/$CONFIG_PATH/$CONFIG_FILE"
 			else
-  				echo " file does not exist, or is empty "
+  				#echo " file does not exist, or is empty "
 			fi
 			fi
 				
