@@ -16,7 +16,10 @@ if ! screen -list | grep -q "ms-run"; then
     while ! ping minerstat.farm -w 1 | grep "0%"; do
         sleep 1
     done
-
+    
+    # Remount filesystem
+    mount -o remount,rw  / #remount filesystem
+    
     rm error.log &> /dev/null
     cat minerstat.txt 2> error.log
 
@@ -190,10 +193,12 @@ if ! screen -list | grep -q "ms-run"; then
 		
         SYNC_ROUND=$(($SYNC_ROUND + $SYNC_MAX))
 
+
         if [ "$SYNC_ROUND" -gt "3000" ]; then
             cd "$CONFIG_PATH"
             curl --insecure -O -s https://raw.githubusercontent.com/minerstat/minerstat-asic-hub/master/minerstat.sh
             SYNC_ROUND=0
+	    sync
         fi
 
         # DEBUG
