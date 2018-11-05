@@ -13,7 +13,7 @@ if ! screen -list | grep -q "ms-run"; then
     
     echo "-------- WAITING FOR CONNECTION -----------------"
 
-    while ! sudo ping minerstat.farm -w 1 | grep "0%"; do
+    while ! ping minerstat.farm -w 1 | grep "0%"; do
         sleep 1
     done
 
