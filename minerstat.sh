@@ -207,8 +207,7 @@ if ! screen -list | grep -q "ms-run"; then
 	#READ=$(cat "/$CONFIG_PATH/$CONFIG_FILE")
 		# Update config on the 3th sync
 			if [ "$SYNC_ROUND" != "135" ]; then
-				#echo "Waiting for config push"
-				#echo "Round $SYNC_ROUND"
+				echo ""
 			else 
 				rm "$CONFIG_PATH/server.json"
 				POSTIT=$(cd $CONFIG_PATH; wget -O server.json "http://static.minerstat.farm/asicproxy.php?token=$TOKEN&worker=$WORKER&type=$ASIC")
@@ -263,6 +262,8 @@ if ! screen -list | grep -q "ms-run"; then
             echo "SHUTTING DOWN..."
             /sbin/shutdown -h now
         fi
+	
+	clear
     }
 
     #############################
