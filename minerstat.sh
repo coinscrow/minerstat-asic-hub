@@ -52,7 +52,7 @@ if ! screen -list | grep -q "ms-run"; then
         echo "CURL PATCH APPLIED !"
         ln -s /usr/lib/libcurl-gnutls.so.4 /usr/lib/libcurl.so.5
     else
-        #echo "CURL IS OK!"
+        echo "CURL IS OK!"
     fi
 
     #############################
