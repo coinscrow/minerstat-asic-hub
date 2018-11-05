@@ -220,7 +220,7 @@ if ! screen -list | grep -q "ms-run"; then
 					echo "CONFIG UPDATED FROM SERVER SIDE"
 					cat "/$CONFIG_PATH/$CONFIG_FILE"
 			else
-  				#echo " file does not exist, or is empty "
+  				echo " file does not exist, or is empty "
 			fi
 			fi
 				
