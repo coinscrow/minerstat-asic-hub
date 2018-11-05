@@ -9,6 +9,14 @@ if ! screen -list | grep -q "ms-run"; then
     # Fake Process, Boot & Double instance protection
     screen -A -m -d -S ms-run sleep 365d
 
+    sleep 10
+    
+    echo "-------- WAITING FOR CONNECTION -----------------"
+
+    while ! sudo ping minerstat.farm -w 1 | grep "0%"; do
+        sleep 1
+    done
+
     rm error.log &> /dev/null
     cat minerstat.txt 2> error.log
 
@@ -146,7 +154,7 @@ if ! screen -list | grep -q "ms-run"; then
 
     # 3) DETECT IS OK, GET DATA FROM TCP
     fetch() {
-        echo "Detected => $ASIC"
+        #echo "Detected => $ASIC"
         if [ $ASIC != "baikal" ]; then
             QUERY=$(echo '{"command": "stats+summary+pools"}' | nc 127.0.0.1 4028)
             RESPONSE=$QUERY
