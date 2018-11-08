@@ -81,7 +81,7 @@ if [ "$COUNT" -gt "0" ]; then
    		echo "----------------------------------------"
    		echo "$IP: Logging in with $LOGIN / $PASS [$i]"
    		
-			INSTALL="echo 'RESPONSE: Installing..'; cd /tmp && curl --insecure -O firmware.tar.gz $FIRMWARE_URL && chmod 777 *.tar.gz && tar -xvf $FIRMWARE_FILE_NAME.tar.gz; ls; ./runme.sh"
+			INSTALL="echo 'RESPONSE: Installing..'; cd /tmp && curl --insecure -O $FIRMWARE_URL && chmod 777 *.tar.gz && tar -xvf $FIRMWARE_FILE_NAME.tar.gz; ls; ./runme.sh"
 			echo "$IP: Updating firmware"
 
 		sshpass -p$PASS ssh $LOGIN@$IP -p 22 -oStrictHostKeyChecking=no -oConnectTimeout=20 "$INSTALL"
