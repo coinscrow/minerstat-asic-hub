@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # EDIT ME
-FIRMWARE_URL="https://file11.bitmain.com/shop-product/firmware/Antminer%20S9/Firmware/00720181023085051052I1rKLts1068D/Antminer-S9-LPM-20181102.tar.gz"
+FIRMWARE_URL="https://raw.githubusercontent.com/minerstat/minerstat-asic-hub/master/firmware/Antminer-S9-LPM-20181102.tar.gz"
 FIRMWARE_FILE_NAME="Antminer-S9-LPM-20181102"
 
 # CHECK FOR DEPENDENCIES
@@ -81,7 +81,7 @@ if [ "$COUNT" -gt "0" ]; then
    		echo "----------------------------------------"
    		echo "$IP: Logging in with $LOGIN / $PASS [$i]"
    		
-			INSTALL="echo 'RESPONSE: Installing..'; cd /tmp && wget -O firmware.tar.gz $FIRMWARE_URL && chmod 777 *.tar.gz && tar -xvf $FIRMWARE_FILE_NAME.tar.gz; cd $FIRMWARE_FILE_NAME; ls"
+			INSTALL="echo 'RESPONSE: Installing..'; cd /tmp && curl --insecure -O firmware.tar.gz $FIRMWARE_URL && chmod 777 *.tar.gz && tar -xvf $FIRMWARE_FILE_NAME.tar.gz; ls"
 			echo "$IP: Updating firmware"
 
 		sshpass -p$PASS ssh $LOGIN@$IP -p 22 -oStrictHostKeyChecking=no -oConnectTimeout=20 "$INSTALL"
