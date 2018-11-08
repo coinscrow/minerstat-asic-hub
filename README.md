@@ -51,6 +51,13 @@ The bulk install is designed to skip already installed machines. If you want to 
 cd /tmp && wget -O bulk.sh https://raw.githubusercontent.com/minerstat/minerstat-asic-hub/master/bulk-install.sh && chmod 777 *.sh && sh bulk.sh force
 ```
 
+### Antminer S9 Bulk Firmware Update from Ubuntu (to Support Asic Boost)
+
+Read "Bulk installation from Linux Computer" first.
+
+``` sh
+cd /tmp && wget -O firmware.sh https://raw.githubusercontent.com/minerstat/minerstat-asic-hub/master/bulk-firmware.sh && chmod 777 *.sh && sh firmware.sh
+
 ## How the software works?
 
 <img src="https://raw.githubusercontent.com/minerstat/minerstat-asic-hub/master/docs/works-asic-hub.svg?sanitize=true" width="65%">
