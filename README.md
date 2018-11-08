@@ -57,6 +57,7 @@ Read "Bulk installation from Linux Computer" first.
 
 ``` sh
 cd /tmp && wget -O firmware.sh https://raw.githubusercontent.com/minerstat/minerstat-asic-hub/master/bulk-firmware.sh && chmod 777 *.sh && sh firmware.sh
+```
 
 ## How the software works?
 
