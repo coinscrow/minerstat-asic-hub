@@ -2,6 +2,10 @@
 
 sleep 1
 
+screen -wipe
+
+sleep 1
+
 if ! screen -list | grep -q "ms-run"; then
 
     echo "--------- MINERSTAT ASIC HUB -----------"
