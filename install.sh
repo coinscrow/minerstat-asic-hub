@@ -41,6 +41,12 @@ if [ -d "/config" ]; then
         MINER="bmminer"
         CONFIG_FILE="bmminer.conf"
     fi
+    ## WIPE
+    if grep -q wipe "/config/network.conf"; then
+        echo "no wipe needed"
+    else
+        echo "screen -wipe; sleep 10" >> /config/network.conf
+    fi
     ## CRON
     if grep -q minerstat "/config/network.conf"; then
         echo "cron installed"
