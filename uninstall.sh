@@ -13,6 +13,9 @@ echo "Remove => Cronjobs"
 # CGMINER CRON DELETE
 if [ -d "/config" ]; then
     if [ -f "/config/cgminer.conf" ]; then
+        if grep -q wipe "/config/network.conf"; then
+            sed -i '$ d' /config/network.conf
+        fi
         if grep -q minerstat "/config/network.conf"; then
             sed -i '$ d' /config/network.conf
         fi
