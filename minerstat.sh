@@ -165,7 +165,7 @@ if ! screen -list | grep -q "ms-run"; then
         if [ $ASIC != "baikal" ]; then
             QUERY=$(echo '{"command": "stats+summary+pools"}' | nc -w 15 127.0.0.1 4028)
             RESPONSE=$QUERY
-	    if [ $RESPONSE != "timeout" ]; then
+	    if [ "$RESPONSE" != "timeout" ]; then
 	    	post
 	    else
 		sleep 3
