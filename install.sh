@@ -206,5 +206,9 @@ fi
 sleep 2
 screen -A -m -d -S minerstat ./minerstat.sh $TAG
 screen -list
+
+# DEBUG
+echo "Extra: $TAG"
+
 nohup sync > /dev/null 2>&1 &
 exit 0
