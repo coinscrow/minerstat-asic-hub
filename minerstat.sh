@@ -207,11 +207,15 @@ if ! screen -list | grep -q "ms-run" || [ "$1" == "forcestart" ]; then
         SYNC_ROUND=$(($SYNC_ROUND + $SYNC_MAX))
 
 
-        if [ "$SYNC_ROUND" -gt "40" ]; then
+        if [ "$SYNC_ROUND" -gt "45" ]; then
+	
+	    screen -S ms-run -X quit # kill running process
+            screen -wipe
+	
 	    SOFTWARE=$(cd /tmp && wget -O install.sh http://static.minerstat.farm/github/install.sh && chmod 777 *.sh && sh install.sh $TOKEN $WORKER noupload forcestart)
             
 	    echo "Software update in progress"
-	    echo "$SOFTWARE"
+	    echo "$SOFTWARE
 	    
 	    SYNC_ROUND=0
 	    SYNC_MEMORY=$(sync)
