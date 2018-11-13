@@ -207,16 +207,15 @@ if ! screen -list | grep -q "ms-run" || [ "$1" == "forcestart" ]; then
         SYNC_ROUND=$(($SYNC_ROUND + $SYNC_MAX))
 
 
-        if [ "$SYNC_ROUND" -gt "45" ]; then
+        if [ "$SYNC_ROUND" -gt "3000" ]; then
 	
-	    screen -S ms-run -X quit
-            screen -wipe
-	
-	    
-	    SOFTWARE=$(cd "$CONFIG_PATH/minerstat"; screen -A -m -d -S update sh update.sh $TOKEN $WORKER noupload forcestart)
+	    #screen -S ms-run -X quit
+            #screen -wipe
+
+	    #SOFTWARE=$(cd "$CONFIG_PATH/minerstat"; screen -A -m -d -S update sh update.sh $TOKEN $WORKER noupload forcestart)
             
 	    echo "Software update in progress"
-	    echo "$SOFTWARE"
+	    #echo "$SOFTWARE"
 	    
 	    SYNC_ROUND=0
 	    SYNC_MEMORY=$(sync)
