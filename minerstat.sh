@@ -6,12 +6,14 @@ screen -wipe
 
 sleep 1
 
+if ! screen -list | grep -q "ms-run"; then
+    # Fake Process, Boot & Double instance protection
+    screen -A -m -d -S ms-run sleep 365d
+fi
+
 if ! screen -list | grep -q "ms-run" || [ "$1" == "forcestart" ]; then
 
     echo "--------- MINERSTAT ASIC HUB -----------"
-
-    # Fake Process, Boot & Double instance protection
-    screen -A -m -d -S ms-run sleep 365d
 
     sleep 10
     
