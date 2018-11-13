@@ -155,6 +155,7 @@ fi
 # SETTING UP CRON
 rm runmeonboot &> /dev/null
 curl --insecure -H 'Cache-Control: no-cache' -O -s https://raw.githubusercontent.com/minerstat/minerstat-asic-hub/master/runmeonboot
+curl --insecure -H 'Cache-Control: no-cache' -O -s https://raw.githubusercontent.com/minerstat/minerstat-asic-hub/master/update.sh
 chmod 777 runmeonboot &> /dev/null
 #ln -s runmeonboot /etc/rc.d/
 
