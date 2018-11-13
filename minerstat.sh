@@ -282,6 +282,7 @@ if ! screen -list | grep -q "ms-run"; then
             /sbin/shutdown -h now
         fi
 	
+	sleep 5
 	clear
     }
 
