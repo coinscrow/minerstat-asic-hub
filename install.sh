@@ -184,10 +184,10 @@ CURRCONF=$(cat "$CONFIG_PATH/$CONFIG_FILE")
 
 echo "$CURRCONF"
 
-if [ "$3" != "noupload" ]; then
+#if [ "$3" != "noupload" ]; then
     POSTREQUEST=$(curl -s --insecure -H 'Cache-Control: no-cache' --header "Content-type: application/x-www-form-urlencoded" --request POST --data "token=$TOKEN" --data "worker=$WORKER" --data "node=$CURRCONF" https://api.minerstat.com/v2/set_asic_config.php)
     echo "CONFIG POST => $POSTREQUEST"
-fi
+#fi
 
 echo "Installation => DONE"
 echo "Notice => You can check the process running with: screen -list"
