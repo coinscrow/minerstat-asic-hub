@@ -194,7 +194,16 @@ echo "Notice => You can check the process running with: screen -list"
 #############################
 # START THE SCRIPT
 
+TAG="null"
+
+if [ "$4" != "forcestart" ]; then
+    echo ""
+else
+    echo "force start"
+    TAG="forcestart"
+fi
+
 sleep 2
-sh runmeonboot
+sh runmeonboot $TAG
 nohup sync > /dev/null 2>&1 &
 exit 0
