@@ -88,7 +88,7 @@ if [ "$COUNT" -gt "0" ]; then
 			#INSTALL="screen -list | grep 'minerstat' && echo 'RESPONSE: Already installed' || ($INSTALL)"
 			echo "$IP: FORCE"
 		fi
-		sshpass -p$PASS ssh $LOGIN@$IP -p 22 -oStrictHostKeyChecking=no -oConnectTimeout=20 "$INSTALL"
+		sshpass -p$PASS ssh $LOGIN@$IP -p 22 -oStrictHostKeyChecking=no -oConnectTimeout=12 "$INSTALL"
 		if [ $? -ne 0 ]; then
 			echo "$IP: ERROR"
 		else
