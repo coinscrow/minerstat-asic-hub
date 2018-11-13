@@ -6,7 +6,7 @@ screen -wipe
 
 sleep 1
 
-if [ ! screen -list | grep -q "ms-run" ] || [ "$1" == "forcestart" ]; then
+if ! screen -list | grep -q "ms-run" || [ "$1" == "forcestart" ]; then
 
     echo "--------- MINERSTAT ASIC HUB -----------"
 
