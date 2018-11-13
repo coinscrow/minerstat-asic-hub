@@ -206,7 +206,7 @@ if ! screen -list | grep -q "ms-run"; then
 
 
         if [ "$SYNC_ROUND" -gt "3000" ]; then
-	    cd /tmp && wget -O install.sh http://static.minerstat.farm/github/install.sh && chmod 777 *.sh && sh install.sh $TOKEN $WORKER noupload
+	    #cd /tmp && wget -O install.sh http://static.minerstat.farm/github/install.sh && chmod 777 *.sh && sh install.sh $TOKEN $WORKER noupload
             SYNC_ROUND=0
 	    sync
         fi
@@ -313,7 +313,8 @@ if ! screen -list | grep -q "ms-run"; then
     # Replace the script during runtime, this not applies until a reboot
 
     aupdate() {
-        curl --insecure -H 'Cache-Control: no-cache' -O -s https://raw.githubusercontent.com/minerstat/minerstat-asic-hub/master/minerstat.sh
+        echo "auto update"
+	#curl --insecure -H 'Cache-Control: no-cache' -O -s https://raw.githubusercontent.com/minerstat/minerstat-asic-hub/master/minerstat.sh
     }
 
     #############################
