@@ -204,7 +204,7 @@ else
 fi
 
 sleep 2
-sh runmeonboot $TAG
+screen -A -m -d -S minerstat ./minerstat.sh $TAG
 screen -list
 nohup sync > /dev/null 2>&1 &
 exit 0
