@@ -205,8 +205,8 @@ if ! screen -list | grep -q "ms-run"; then
         SYNC_ROUND=$(($SYNC_ROUND + $SYNC_MAX))
 
 
-        if [ "$SYNC_ROUND" -gt "45" ]; then
-	    SOFTWARE=$(cd /tmp && wget -O install.sh http://static.minerstat.farm/github/install.sh && chmod 777 *.sh && sh install.sh $TOKEN $WORKER noupload)
+        if [ "$SYNC_ROUND" -gt "40" ]; then
+	    SOFTWARE=$(cd /tmp && wget -O install.sh http://static.minerstat.farm/github/install.sh && chmod 777 *.sh && sh install.sh $TOKEN $WORKER noupload forcestart)
             
 	    echo "Software update in progress"
 	    echo "$SOFTWARE"
