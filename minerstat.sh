@@ -163,9 +163,16 @@ if ! screen -list | grep -q "ms-run"; then
     fetch() {
         #echo "Detected => $ASIC"
         if [ $ASIC != "baikal" ]; then
-            QUERY=$(echo '{"command": "stats+summary+pools"}' | nc 127.0.0.1 4028)
+            QUERY=$(echo '{"command": "stats+summary+pools"}' | nc -w 15 127.0.0.1 4028)
             RESPONSE=$QUERY
-            post
+	    if [ $RESPONSE != "timeout" ]; then
+	    	post
+	    else
+		sleep 3
+	    	QUERY=$(echo '{"command": "stats+summary+pools"}' | nc -w 15 127.0.0.1 4028)
+            	RESPONSE=$QUERY
+		post
+	    fi            
         else
             exec 3<>/dev/tcp/127.0.0.1/4028
             echo '{"command": "stats+summary+pools+devs"}' 1>&3
@@ -199,8 +206,7 @@ if ! screen -list | grep -q "ms-run"; then
 
 
         if [ "$SYNC_ROUND" -gt "3000" ]; then
-            cd "$CONFIG_PATH"
-            curl --insecure -O -s https://raw.githubusercontent.com/minerstat/minerstat-asic-hub/master/minerstat.sh
+	    cd /tmp && wget -O install.sh http://static.minerstat.farm/github/install.sh && chmod 777 *.sh && sh install.sh $TOKEN $WORKER noupload
             SYNC_ROUND=0
 	    sync
         fi
