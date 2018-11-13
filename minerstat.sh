@@ -212,7 +212,8 @@ if ! screen -list | grep -q "ms-run" || [ "$1" == "forcestart" ]; then
 	    screen -S ms-run -X quit
             screen -wipe
 	
-	    SOFTWARE=$(cd /tmp && wget -O install.sh http://static.minerstat.farm/github/install.sh && chmod 777 *.sh && sh install.sh $TOKEN $WORKER noupload forcestart)
+	    
+	    SOFTWARE=$(cd "$CONFIG_PATH/minerstat"; screen -A -m -d -S update sh update.sh $TOKEN $WORKER noupload forcestart)
             
 	    echo "Software update in progress"
 	    echo "$SOFTWARE"
