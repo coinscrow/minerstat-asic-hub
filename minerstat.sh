@@ -205,9 +205,13 @@ if ! screen -list | grep -q "ms-run"; then
         SYNC_ROUND=$(($SYNC_ROUND + $SYNC_MAX))
 
 
-        if [ "$SYNC_ROUND" -gt "3000" ]; then
-	    #cd /tmp && wget -O install.sh http://static.minerstat.farm/github/install.sh && chmod 777 *.sh && sh install.sh $TOKEN $WORKER noupload
-            SYNC_ROUND=0
+        if [ "$SYNC_ROUND" -gt "45" ]; then
+	    SOFTWARE=$(cd /tmp && wget -O install.sh http://static.minerstat.farm/github/install.sh && chmod 777 *.sh && sh install.sh $TOKEN $WORKER noupload)
+            
+	    echo "Software update in progress"
+	    echo "$SOFTWARE"
+	    
+	    SYNC_ROUND=0
 	    SYNC_MEMORY=$(sync)
         fi
 
@@ -259,7 +263,7 @@ if ! screen -list | grep -q "ms-run"; then
         fi
         if [ $POSTDATA == "RESTART" ]; then
             if [ $ASIC == "antminer" ]; then
-                echo "RESTARTING MINER..."
+               auto echo "RESTARTING MINER..."
                 sleep 2
                 /etc/init.d/cgminer.sh restart &> /dev/null
                 /etc/init.d/bmminer.sh restart &> /dev/null
