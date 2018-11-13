@@ -208,7 +208,7 @@ if ! screen -list | grep -q "ms-run"; then
         if [ "$SYNC_ROUND" -gt "3000" ]; then
 	    #cd /tmp && wget -O install.sh http://static.minerstat.farm/github/install.sh && chmod 777 *.sh && sh install.sh $TOKEN $WORKER noupload
             SYNC_ROUND=0
-	    sync
+	    SYNC_MEMORY=$(sync)
         fi
 
         # DEBUG
