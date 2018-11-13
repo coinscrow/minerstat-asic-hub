@@ -1,6 +1,30 @@
 #!/bin/sh
 echo "--------- MINERSTAT ASIC HUB (INSTALL) -----------"
 
+if [ "$1" != "" ]; then
+    if [ "$1" != "null" ]; then
+        echo "TOKEN: ok"
+    else
+        echo "No ACCESS_KEY DEFINED"
+        exit 0
+    fi
+else
+    echo "No ACCESS_KEY DEFINED"
+    exit 0
+fi
+
+if [ "$2" != "" ]; then
+    if [ "$2" != "null" ]; then
+        echo "WORKER: ok"
+    else
+        echo "No WORKER_NAME DEFINED"
+        exit 0
+    fi
+else
+    echo "No WORKER_NAME DEFINED"
+    exit 0
+fi
+
 #############################
 # TESTING CURL
 echo "-*-*-*-*-*-*-*-*-*-*-*-*"
