@@ -1,2 +1,2 @@
 #!/bin/bash
-screen -A -m -d -S minerstat ./minerstat.sh
+screen -A -m -d -S minerstat ./minerstat.sh $1
