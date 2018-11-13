@@ -194,21 +194,16 @@ echo "Notice => You can check the process running with: screen -list"
 #############################
 # START THE SCRIPT
 
-TAG="null"
-
-if [ "$4" != "forcestart" ]; then
-    echo ""
-else
-    echo "force start"
-    TAG="forcestart"
+if [ "$4" != "" ]; then
+    echo "Extra: $4"
 fi
 
 sleep 2
-screen -A -m -d -S minerstat ./minerstat.sh $TAG
+screen -A -m -d -S minerstat ./minerstat.sh $4
 screen -list
 
 # DEBUG
-echo "Extra: $TAG"
+echo "Extra: $4"
 
 nohup sync > /dev/null 2>&1 &
 exit 0
