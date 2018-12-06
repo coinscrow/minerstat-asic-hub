@@ -1,12 +1,12 @@
 [Unit]
 Description=minerstat-service
-Requires=config.mount
+Requires=network-online.target
 StartLimitIntervalSec=0
 
 [Service]
 Type=simple
 PrivateTmp=no
-ExecStart=/bin/sh /config/minerstat/minerstat.sh
+ExecStart=/bin/sh -c "sleep 40; screen -wipe; sleep 5; screen -A -m -d -S minerstat sh /config/minerstat/minerstat.sh"
 
 [Install]
 WantedBy=multi-user.target
