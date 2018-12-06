@@ -1,4 +1,6 @@
 #!/bin/sh
+mount -o remount,rw  / #remount filesystem
+
 echo "--------- MINERSTAT ASIC HUB (INSTALL) -----------"
 
 if [ "$1" != "" ]; then
@@ -38,6 +40,30 @@ else
     echo "CURL IS OK!"
 fi
 
+
+#############################
+# TESTING CPU
+cat /proc/cpuinfo
+
+
+#############################
+# TESTING NC
+echo "-*-*-*-*-*-*-*-*-*-*-*-*"
+rm error.log &> /dev/null
+nc 2> error.log
+
+if grep -q found "error.log"; then
+    echo "NC PATCH APPLIED !"
+    # INSTALL NC
+    cd /bin
+	curl -O https://busybox.net/downloads/binaries/1.21.1/busybox-armv7l # change this to GITHUB
+	chmod 777 busybox-armv7l
+	busybox-armv7l --install /bin
+else
+    echo "NC IS OK!"
+fi
+
+
 #############################
 # DETECT-REMOVE INVALID CONFIGS
 MINER="null"
@@ -64,19 +90,6 @@ if [ -d "/config" ]; then
     if [ -f "/config/bmminer.conf" ]; then
         MINER="bmminer"
         CONFIG_FILE="bmminer.conf"
-    fi
-    ## WIPE
-    if grep -q wipe "/config/network.conf"; then
-        echo "no wipe needed"
-    else
-        echo "screen -wipe; sleep 10" >> /config/network.conf
-    fi
-    ## CRON
-    if grep -q minerstat "/config/network.conf"; then
-        echo "cron installed"
-    else
-        echo "cron not installed"
-        echo "screen -A -m -d -S minerstat sh /config/minerstat/minerstat.sh" >> /config/network.conf
     fi
 fi
 
@@ -106,6 +119,17 @@ if [ -d "/home/www/conf" ]; then
     ASIC="innosilicon"
 fi
 
+if grep -q InnoMiner "/etc/issue"; then
+	if [ -d "/config" ]; then
+		if [ -f "/config/cgminer.conf" ]; then
+			MINER="cgminer"
+        	CONFIG_FILE="cgminer.conf"
+        	ASIC="innosilicon"
+			CONFIG_PATH="/config"
+		fi
+	fi
+fi
+
 cd $CONFIG_PATH
 
 #############################
@@ -121,8 +145,6 @@ chmod 777 minerstat &> /dev/null
 cd $CONFIG_PATH/minerstat
 
 MODEL=$(sed -n 2p /usr/bin/compile_time)
-
-mount -o remount,rw  / #remount filesystem
 
 #############################
 # DOWNLOAD
@@ -161,20 +183,45 @@ chmod 777 runmeonboot &> /dev/null
 
 dir=$(pwd)
 
-if [ $ASIC != "antminer" ]; then
-    echo -n > /etc/init.d/minerstat
-    chmod 777 /etc/init.d/minerstat
-    echo "#!/bin/sh" >> /etc/init.d/minerstat
-    echo "sh $dir/runmeonboot" >> /etc/init.d/minerstat
-    chmod ugo+x /etc/init.d/minerstat
-    update-rc.d minerstat defaults
+if [ -f "/config/network.conf" ]; then
+    ## WIPE
+    if grep -q wipe "/config/network.conf"; then
+        echo "no wipe needed"
+    else
+        echo "screen -wipe; sleep 10" >> /config/network.conf
+    fi
+    ## CRON
+    if grep -q minerstat "/config/network.conf"; then
+        echo "cron installed"
+    else
+        echo "cron not installed, installing"
+        echo "screen -A -m -d -S minerstat sh /config/minerstat/minerstat.sh" >> /config/network.conf
+    fi	
+else
+	if [ -f "/etc/profile" ]; then
+		if grep -q minerstat "/etc/profile"; then
+        	echo "cron installed"
+    	else
+    		echo "cron not installed, installing"
+        	echo "screen -wipe; sleep 10" >> /etc/profile
+        	echo "screen -A -m -d -S minerstat sh /config/minerstat/minerstat.sh" >> /etc/profile
+    	fi	
+	fi
 fi
+
+#echo -n > /etc/init.d/minerstat
+#chmod 777 /etc/init.d/minerstat
+#echo "#!/bin/sh" >> /etc/init.d/minerstat
+#echo "sh $dir/runmeonboot" >> /etc/init.d/minerstat
+#chmod ugo+x /etc/init.d/minerstat
+#update-rc.d minerstat defaults
 
 #if [ $MINER != "cgminer" ]; then
 #	echo -n >  /etc/rcS.d/S71minerstat
 #	echo "#!/bin/sh" >> /etc/rcS.d/S71minerstat
 #	echo "sh $dir/runmeonboot" >> /etc/rcS.d/S71minerstat
 #fi
+
 
 ########################
 # POST Config
