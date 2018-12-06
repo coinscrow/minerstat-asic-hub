@@ -6,7 +6,7 @@ StartLimitIntervalSec=0
 [Service]
 Type=simple
 PrivateTmp=no
-ExecStartPre=screen -wipe; sleep 10
+ExecStartPre=screen -wipe
 ExecStartPre=screen -A -m -d -S minerstat sh /config/minerstat/minerstat.sh
 ExecStart=echo done
 
