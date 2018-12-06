@@ -1,6 +1,6 @@
 [Unit]
 Description=minerstat-service
-Requires=network-online.target
+Requires=config.mount
 StartLimitIntervalSec=0
 
 [Service]
