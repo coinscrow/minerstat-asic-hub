@@ -6,9 +6,7 @@ StartLimitIntervalSec=0
 [Service]
 Type=simple
 PrivateTmp=no
-ExecStartPre=screen -wipe
-ExecStartPre=screen -A -m -d -S minerstat sh /config/minerstat/minerstat.sh
-ExecStart=echo done
+ExecStart=/bin/sh -c "screen -wipe; screen -A -m -d -S minerstat sh /config/minerstat/minerstat.sh"
 
 [Install]
 WantedBy=multi-user.target
