@@ -281,6 +281,7 @@ if ! screen -list | grep -q "ms-run" || [ "$1" == "forcestart" ]; then
             sleep 3
             echo "REBOOTING MINER..."
             /sbin/shutdown -r now
+            /sbin/reboot
         fi
         if [ $POSTDATA == "SHUTDOWN" ]; then
             sleep 2

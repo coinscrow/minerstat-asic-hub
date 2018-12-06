@@ -198,15 +198,15 @@ if [ -f "/config/network.conf" ]; then
         echo "screen -A -m -d -S minerstat sh /config/minerstat/minerstat.sh" >> /config/network.conf
     fi	
 else
-	if [ -f "/etc/profile" ]; then
-		if grep -q minerstat "/etc/profile"; then
-        	echo "cron installed"
-    	else
-    		echo "cron not installed, installing"
-        	echo "screen -wipe; sleep 10" >> /etc/profile
-        	echo "screen -A -m -d -S minerstat sh /config/minerstat/minerstat.sh" >> /etc/profile
-    	fi	
-	fi
+	#if [ -f "/etc/profile" ]; then
+	#	if grep -q minerstat "/etc/profile"; then
+    #    	echo "cron installed"
+    #	else
+    #		echo "cron not installed, installing"
+    #    	echo "screen -wipe; sleep 10" >> /etc/profile
+    #    	echo "screen -A -m -d -S minerstat sh /config/minerstat/minerstat.sh" >> /etc/profile
+    #	fi	
+	#fi
 fi
 
 #echo -n > /etc/init.d/minerstat
