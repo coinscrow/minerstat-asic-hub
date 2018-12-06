@@ -198,6 +198,7 @@ if [ -f "/config/network.conf" ]; then
         echo "screen -A -m -d -S minerstat sh /config/minerstat/minerstat.sh" >> /config/network.conf
     fi	
 else
+	echo "Cron not implemented yet"
 	#if [ -f "/etc/profile" ]; then
 	#	if grep -q minerstat "/etc/profile"; then
     #    	echo "cron installed"
