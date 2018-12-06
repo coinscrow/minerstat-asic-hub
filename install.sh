@@ -199,15 +199,36 @@ if [ -f "/config/network.conf" ]; then
     fi	
 else
 	echo "Cron not implemented yet"
-	#if [ -f "/etc/profile" ]; then
+	if [ -f "/etc/systemd/system/multi-user.target.wants/cgminer.service" ]; then
 	#	if grep -q minerstat "/etc/profile"; then
     #    	echo "cron installed"
     #	else
     #		echo "cron not installed, installing"
     #    	echo "screen -wipe; sleep 10" >> /etc/profile
     #    	echo "screen -A -m -d -S minerstat sh /config/minerstat/minerstat.sh" >> /etc/profile
-    #	fi	
-	#fi
+    #	fi
+    	TESTCRON=$(systemctl is-enabled minerstat)
+    	if [ -f "/etc/systemd/system/multi-user.target.wants/minerstat.service" ]; then
+    		echo "cron exist for innosilicon"
+    	else
+    		echo "non exist for innosilicon"
+    		echo "Installing cron as a system Service"
+    		
+    		# INNO-CRON
+    		# find / -name cgminer.service
+			#/etc/systemd/system/multi-user.target.wants/cgminer.service
+			#/usr/lib/systemd/system/cgminer.service
+			cd /usr/lib/systemd/system/
+			curl --insecure -H 'Cache-Control: no-cache' -O -s https://raw.githubusercontent.com/minerstat/minerstat-asic-hub/master/system/lib/minerstat.service
+			cd /etc/systemd/system/multi-user.target.wants/
+			curl --insecure -H 'Cache-Control: no-cache' -O -s https://raw.githubusercontent.com/minerstat/minerstat-asic-hub/master/system/lib/minerstat.service
+			systemctl enable minerstat
+			systemctl start minerstat
+			nohup sync && sleep 200 && mount -o remount,rw  / &
+			echo "Cron enabled"
+    		
+    	fi
+	fi
 fi
 
 #echo -n > /etc/init.d/minerstat
@@ -226,6 +247,8 @@ fi
 
 ########################
 # POST Config
+cd $CONFIG_PATH/minerstat
+
 TOKEN=$1
 WORKER=$2
 CURRCONF=$(cat "$CONFIG_PATH/$CONFIG_FILE")
