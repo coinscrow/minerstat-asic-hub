@@ -220,8 +220,8 @@ else
 			#/usr/lib/systemd/system/cgminer.service
 			cd /usr/lib/systemd/system/
 			curl --insecure -H 'Cache-Control: no-cache' -O -s https://raw.githubusercontent.com/minerstat/minerstat-asic-hub/master/system/lib/minerstat.service
-			cd /etc/systemd/system/multi-user.target.wants/
-			curl --insecure -H 'Cache-Control: no-cache' -O -s https://raw.githubusercontent.com/minerstat/minerstat-asic-hub/master/system/lib/minerstat.service
+			#cd /etc/systemd/system/multi-user.target.wants/
+			#curl --insecure -H 'Cache-Control: no-cache' -O -s https://raw.githubusercontent.com/minerstat/minerstat-asic-hub/master/system/lib/minerstat.service
 			systemctl enable minerstat
 			systemctl start minerstat
 			nohup sync && sleep 200 && mount -o remount,rw  / &
